@@ -1,8 +1,8 @@
-import { BiCommentDetail } from "react-icons/bi";
-import { BsThreeDots } from "react-icons/bs";
-import { FaRegHeart } from "react-icons/fa";
-import { IoShareSocial } from "react-icons/io5";
-import { LuDot } from "react-icons/lu";
+import { BiCommentDetail } from 'react-icons/bi'
+import { BsThreeDots } from 'react-icons/bs'
+import { FaRegHeart } from 'react-icons/fa'
+import { IoShareSocial } from 'react-icons/io5'
+import { LuDot } from 'react-icons/lu'
 
 const Post = () => {
   return (
@@ -39,12 +39,12 @@ const Post = () => {
         </div>
       </div>
       <div className="text-gray-600 text-sm px-2 md:px-1">
-        Liked by{" "}
-        <span className="text-black font-semibold">good_luck_0701</span> and{" "}
+        Liked by{' '}
+        <span className="text-black font-semibold">good_luck_0701</span> and{' '}
         <span className="text-black font-semibold">others</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post

@@ -1,6 +1,6 @@
-import SideNav from "@/components/SideNav";
-import Post from "@/components/Post";
-import Suggest from "@/components/Suggest";
+import SideNav from '@/components/SideNav'
+import Post from '@/components/Post'
+import Suggest from '@/components/Suggest'
 
 export default function Home() {
   return (
@@ -16,5 +16,5 @@ export default function Home() {
         <Suggest />
       </main>
     </div>
-  );
+  )
 }

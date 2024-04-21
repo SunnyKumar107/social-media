@@ -1,4 +1,4 @@
-import User from "./User";
+import User from './User'
 
 const Suggest = () => {
   return (
@@ -14,7 +14,7 @@ const Suggest = () => {
         <User />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Suggest;
+export default Suggest

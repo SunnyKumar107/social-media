@@ -1,31 +1,31 @@
-import Link from "next/link";
-import { FaBars, FaUser } from "react-icons/fa";
-import { IoMdNotifications } from "react-icons/io";
-import { IoHomeSharp, IoSearch } from "react-icons/io5";
-import { MdAddBox } from "react-icons/md";
+import Link from 'next/link'
+import { FaBars, FaUser } from 'react-icons/fa'
+import { IoMdNotifications } from 'react-icons/io'
+import { IoHomeSharp, IoSearch } from 'react-icons/io5'
+import { MdAddBox } from 'react-icons/md'
 
 const NAVIGATION_ITEMS = [
   {
-    title: "Home",
-    icon: IoHomeSharp,
+    title: 'Home',
+    icon: IoHomeSharp
   },
   {
-    title: "Search",
-    icon: IoSearch,
+    title: 'Search',
+    icon: IoSearch
   },
   {
-    title: "Create",
-    icon: MdAddBox,
+    title: 'Create',
+    icon: MdAddBox
   },
   {
-    title: "Notification",
-    icon: IoMdNotifications,
+    title: 'Notification',
+    icon: IoMdNotifications
   },
   {
-    title: "Profile",
-    icon: FaUser,
-  },
-];
+    title: 'Profile',
+    icon: FaUser
+  }
+]
 
 const SideNav = () => {
   return (
@@ -39,8 +39,8 @@ const SideNav = () => {
             <Link
               className="flex h-full w-full items-center justify-center md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4"
               href={
-                item.title === "Home"
-                  ? "/"
+                item.title === 'Home'
+                  ? '/'
                   : `/${item.title.toLocaleLowerCase()}`
               }
               key={item.title}
@@ -60,7 +60,7 @@ const SideNav = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default SideNav;
+export default SideNav

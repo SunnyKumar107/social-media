@@ -14,7 +14,7 @@ const User = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default User;
+export default User
