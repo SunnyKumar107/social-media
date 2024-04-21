@@ -6,8 +6,8 @@ import { LuDot } from "react-icons/lu";
 
 const Post = () => {
   return (
-    <div className="flex flex-col w-[480px] border-b-[1px] border-gray-300 pb-4 mb-8">
-      <div className="flex items-center justify-between w-full mb-3">
+    <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 pb-4 mb-8">
+      <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
         <div className="flex items-center">
           <div className="w-8 h-8 rounded-full bg-gray-200"></div>
           <div className="flex items-center ml-2">
@@ -25,7 +25,7 @@ const Post = () => {
         </div>
       </div>
       <div className="w-full h-[450px] bg-gray-200"></div>
-      <div className="flex items-center justify-between text-[24px] text-gray-700 px-1 my-2">
+      <div className="flex items-center justify-between text-[24px] text-gray-700 px-2 md:px-1 my-2">
         <div className="flex space-x-5">
           <div>
             <FaRegHeart />
@@ -38,7 +38,7 @@ const Post = () => {
           <IoShareSocial />
         </div>
       </div>
-      <div className="text-gray-600 text-sm">
+      <div className="text-gray-600 text-sm px-2 md:px-1">
         Liked by{" "}
         <span className="text-black font-semibold">good_luck_0701</span> and{" "}
         <span className="text-black font-semibold">others</span>

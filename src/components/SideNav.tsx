@@ -29,26 +29,30 @@ const NAVIGATION_ITEMS = [
 
 const SideNav = () => {
   return (
-    <section className="flex flex-col w-60 border-r-[1px] border-gray-300 h-screen fixed p-3">
-      <div className=" px-4 py-6">
+    <section className="flex md:flex-col w-screen md:w-60 bg-white md:border-r-[1px] border-t-[1px] md:border-t-0 border-gray-200 h-16 md:h-screen fixed md:p-3 bottom-0">
+      <div className=" px-4 py-6 hidden md:block">
         <h1 className="text-2xl font-bold font-sans">Instagram</h1>
       </div>
-      <div className="flex flex-col w-full h-full justify-between">
-        <div className="flex flex-col w-full">
+      <div className="flex md:flex-col w-full h-full justify-between">
+        <div className="flex md:flex-col w-full justify-between">
           {NAVIGATION_ITEMS.map((item) => (
             <Link
-              className="hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px] flex items-center justify-start space-x-4"
-              href={`/${item.title.toLocaleLowerCase()}`}
+              className="flex h-full w-full items-center justify-center md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4"
+              href={
+                item.title === "Home"
+                  ? "/"
+                  : `/${item.title.toLocaleLowerCase()}`
+              }
               key={item.title}
             >
               <div className="text-2xl">
                 <item.icon />
               </div>
-              <div className="">{item.title}</div>
+              <div className="hidden md:block">{item.title}</div>
             </Link>
           ))}
         </div>
-        <div className="hover:bg-gray-200 cursor-pointer rounded-xl px-4 py-3 mb-2 text-[17px] flex items-center justify-start space-x-4">
+        <div className="hover:bg-gray-300 cursor-pointer rounded-xl px-4 py-3 mb-2 text-[17px] hidden md:flex items-center justify-start space-x-4">
           <div className="text-2xl">
             <FaBars />
           </div>
