@@ -3,6 +3,7 @@ import { FaBars, FaUser } from 'react-icons/fa'
 import { IoMdNotifications } from 'react-icons/io'
 import { IoHomeSharp, IoSearch } from 'react-icons/io5'
 import { MdAddBox } from 'react-icons/md'
+import Logo from './Logo'
 
 const NAVIGATION_ITEMS = [
   {
@@ -29,9 +30,9 @@ const NAVIGATION_ITEMS = [
 
 const SideNav = () => {
   return (
-    <section className="flex md:flex-col w-screen md:w-60 bg-white md:border-r-[1px] border-t-[1px] md:border-t-0 border-gray-200 h-16 md:h-screen fixed md:p-3 bottom-0">
-      <div className=" px-4 py-6 hidden md:block">
-        <h1 className="text-2xl font-bold font-sans">Instagram</h1>
+    <section className="flex md:flex-col w-screen md:w-60 bg-white md:border-r-[1px] border-t-[1px] md:border-t-0 border-gray-200 h-12 md:h-screen fixed md:p-3 bottom-0">
+      <div className="hidden md:block">
+        <Logo />
       </div>
       <div className="flex md:flex-col w-full h-full justify-between">
         <div className="flex md:flex-col w-full justify-between">
