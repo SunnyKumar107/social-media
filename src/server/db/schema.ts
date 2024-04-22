@@ -12,7 +12,7 @@ export const users = pgTable('users', {
   name: varchar('name', { length: 50 }).notNull(),
   email: varchar('email', { length: 50 }),
   image: varchar('image', { length: 255 }),
-  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull()
+  createdAt: timestamp('created_at').defaultNow().notNull()
 })
 
 export const postsTable = pgTable('posts', {
@@ -23,5 +23,5 @@ export const postsTable = pgTable('posts', {
     .references(() => users.id),
   image: varchar('image', { length: 255 }).notNull(),
   likes: integer('likes').default(0).notNull(),
-  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull()
+  createdAt: timestamp('created_at').defaultNow().notNull()
 })

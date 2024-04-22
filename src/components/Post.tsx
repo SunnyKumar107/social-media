@@ -3,8 +3,23 @@ import { BsThreeDots } from 'react-icons/bs'
 import { FaRegHeart } from 'react-icons/fa'
 import { IoShareSocial } from 'react-icons/io5'
 import { LuDot } from 'react-icons/lu'
+import Image from 'next/image'
 
-const Post = () => {
+const Post = ({
+  id,
+  caption,
+  userId,
+  img,
+  likes,
+  createdAt
+}: {
+  id: string
+  caption: string
+  userId: string
+  img: string
+  likes: number
+  createdAt: string
+}) => {
   return (
     <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 pb-4 mb-8">
       <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
@@ -24,7 +39,9 @@ const Post = () => {
           <BsThreeDots />
         </div>
       </div>
-      <div className="w-full h-[450px] bg-gray-200"></div>
+      <div className="w-full max-h-[500px] overflow-hidden bg-gray-200">
+        <img src={img} alt={img} />
+      </div>
       <div className="flex items-center justify-between text-[24px] text-gray-700 px-2 md:px-1 my-2">
         <div className="flex space-x-5">
           <div>
@@ -38,11 +55,18 @@ const Post = () => {
           <IoShareSocial />
         </div>
       </div>
-      <div className="text-gray-600 text-sm px-2 md:px-1">
-        Liked by{' '}
-        <span className="text-black font-semibold">good_luck_0701</span> and{' '}
-        <span className="text-black font-semibold">others</span>
-      </div>
+      {likes !== 0 ? (
+        <div className="text-gray-600 text-sm px-2 md:px-1">
+          Liked by{' '}
+          <span className="text-black font-semibold">good_luck_0701</span> and{' '}
+          <span className="text-black font-semibold">others</span>
+        </div>
+      ) : (
+        <div className="text-sm font-medium px-2 md:px-1">{likes} likes</div>
+      )}
+      {caption && (
+        <div className="text-sm font-medium mt-2 px-2 md:px-1">{caption}</div>
+      )}
     </div>
   )
 }
