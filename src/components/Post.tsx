@@ -21,8 +21,8 @@ const Post = ({
   createdAt: string
 }) => {
   return (
-    <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 py-2 mb-3">
-      <div className="flex items-center justify-between w-full mt-2 mb-3 px-2 md:px-1">
+    <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 py-2">
+      <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
         <div className="flex items-center">
           <div className="w-8 h-8 rounded-full bg-gray-200"></div>
           <div className="flex items-center ml-2">
