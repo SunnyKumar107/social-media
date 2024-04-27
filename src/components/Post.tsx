@@ -7,6 +7,22 @@ import { IoShareSocial } from 'react-icons/io5'
 import { LuDot } from 'react-icons/lu'
 
 const Post = ({ post }: any) => {
+  const timeExtractor = () => {
+    const totalTime = new Date() - post.createdAt
+    const minute = 1000 * 60
+    const hour = minute * 60
+    const day = hour * 24
+    if (totalTime < minute) {
+      return `${Math.floor(totalTime / 1000)}sec ago`
+    } else if (totalTime < hour) {
+      return `${Math.floor(totalTime / minute)}mintes ago`
+    } else if (totalTime < day) {
+      return `${Math.floor(totalTime / hour)} hours ago`
+    } else {
+      return `${Math.floor(totalTime / day)} days ago`
+    }
+  }
+
   return (
     <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 py-2">
       <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
@@ -27,8 +43,8 @@ const Post = ({ post }: any) => {
               {post.author.username}
               <LuDot />
             </h3>
-            <span className="flex items-center font-extralight text-sm">
-              14h
+            <span className="flex items-center font-normal text-xs">
+              {timeExtractor()}
             </span>
           </div>
         </div>
@@ -36,7 +52,7 @@ const Post = ({ post }: any) => {
           <BsThreeDots />
         </div>
       </div>
-      <div className="w-full max-h-[500px] overflow-hidden bg-gray-200">
+      <div className="flex items-center w-full max-h-[500px] overflow-hidden bg-gray-200">
         <img src={post.img} alt={post.img} />
       </div>
       <div className="flex items-center justify-between text-[24px] text-gray-700 px-2 md:px-1 my-2">
