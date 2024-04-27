@@ -1,16 +1,20 @@
-export type TypePost = {
+export type PostParams = {
   id: string
-  caption: string
-  userId: string
-  image: string
+  caption?: string
+  authorId: string
+  img: string
   likes: number
-  createdAt: Date
+  createdAt: object
+  author: User
 }
 
 export type User = {
-  id: string,
-  username: string,
-  email: string,
-  password: string,
-  createdAt: Date
+  id: string
+  email: string
+  username: string
+  name: string
+  img?: string
+  bio?: string
+  password: string
+  createdAt: object
 }
