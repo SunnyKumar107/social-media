@@ -16,11 +16,9 @@ export const users = pgTable('users', {
   createdAt: timestamp('created_at').defaultNow().notNull()
 })
 
-export const usersRelations = relations(users, ({ one }) => ({
-  profile: one(profiles, {
-    fields: [users.id],
-    references: [profiles.userId]
-  })
+export const usersRelations = relations(users, ({ one, many }) => ({
+  profiles: one(profiles),
+  posts: many(posts)
 }))
 
 export const profiles = pgTable('profiles', {
@@ -33,7 +31,7 @@ export const profiles = pgTable('profiles', {
     .references(() => users.id)
 })
 
-export const postsTable = pgTable('posts', {
+export const posts = pgTable('posts', {
   id: uuid('id').primaryKey().defaultRandom(),
   caption: text('caption').notNull(),
   userId: uuid('user_id')
@@ -43,3 +41,10 @@ export const postsTable = pgTable('posts', {
   likes: integer('likes').default(0).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull()
 })
+
+export const postsRelations = relations(posts, ({ one }) => ({
+  author: one(users, {
+    fields: [posts.userId],
+    references: [users.id]
+  })
+}))

@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/vercel-postgres'
 import { sql } from '@vercel/postgres'
-import { postsTable, users } from './schema'
+import { posts, users } from './schema'
 
 export const db = drizzle(sql)
 
@@ -11,12 +11,13 @@ export const getUserTable = async () => {
   //     profile: true
   //   }
   // })
-  // console.log(result)
+  console.log(result)
   return result
 }
+getUserTable()
 
 export const getPostTable = async () => {
-  const result = await db.select().from(postsTable)
+  const result = await db.select().from(posts)
   return result
 }
 
@@ -37,7 +38,7 @@ export const createPost = async (
   userId: string,
   image: string
 ) => {
-  await db.insert(postsTable).values({
+  await db.insert(posts).values({
     caption: caption,
     userId: userId,
     image: image
