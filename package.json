@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "drizzle:push": "npx drizzle-kit push:pg"
+    "migrate": "npx drizzle-kit push:pg"
   },
   "dependencies": {
     "@vercel/postgres": "^0.8.0",
