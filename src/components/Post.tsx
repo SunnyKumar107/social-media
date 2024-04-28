@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { BiCommentDetail } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs'
 import { FaRegHeart } from 'react-icons/fa'
@@ -28,7 +29,7 @@ const Post = ({ post }: any) => {
     <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 py-2">
       <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
         <div className="flex items-center">
-          <div className="flex items-centre w-8 h-8 rounded-full overflow-hidden bg-gray-200">
+          <Link href={`/${post.author.username}`} className="flex items-centre w-8 h-8 rounded-full overflow-hidden bg-gray-200">
             <Image
               src={
                 post.author.img
@@ -39,12 +40,14 @@ const Post = ({ post }: any) => {
               width={40}
               height={40}
             />
-          </div>
+          </Link>
           <div className="flex items-center ml-2">
-            <h3 className="flex items-center font-semibold text-sm">
-              {post.author.username}
-              <LuDot />
-            </h3>
+            <Link href={`/${post.author.username}`}>
+              <h3 className="flex items-center font-semibold text-sm">
+                {post.author.username}
+                <LuDot />
+              </h3>
+            </Link>
             <span className="flex items-center font-normal text-xs">
               {timeExtractor()}
             </span>
