@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { BiCommentDetail } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs'
 import { FaRegHeart } from 'react-icons/fa'
@@ -8,7 +9,7 @@ import { LuDot } from 'react-icons/lu'
 
 const Post = ({ post }: any) => {
   const timeExtractor = () => {
-    const totalTime = new Date() - post.createdAt
+    const totalTime = Number(new Date()) - Number(new Date(post.createdAt))
     const minute = 1000 * 60
     const hour = minute * 60
     const day = hour * 24
@@ -28,14 +29,15 @@ const Post = ({ post }: any) => {
       <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
         <div className="flex items-center">
           <div className="flex items-centre w-8 h-8 rounded-full overflow-hidden bg-gray-200">
-            <img
-              className="w-full"
+            <Image
               src={
                 post.author.img
                   ? post.author.img
                   : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
               }
-              alt=""
+              alt={post.author.username}
+              width={40}
+              height={40}
             />
           </div>
           <div className="flex items-center ml-2">
@@ -53,7 +55,7 @@ const Post = ({ post }: any) => {
         </div>
       </div>
       <div className="flex items-center w-full max-h-[500px] overflow-hidden bg-gray-200">
-        <img src={post.img} alt={post.img} />
+        <Image src={post.img} alt={post.caption} width={500} height={500} />
       </div>
       <div className="flex items-center justify-between text-[24px] text-gray-700 px-2 md:px-1 my-2">
         <div className="flex space-x-5">
