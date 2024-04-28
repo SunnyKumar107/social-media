@@ -27,9 +27,9 @@ const Post = ({ post }: any) => {
     <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 py-2">
       <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
         <div className="flex items-center">
-          <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200">
+          <div className="flex items-centre w-8 h-8 rounded-full overflow-hidden bg-gray-200">
             <img
-              className="h-full w-full"
+              className="w-full"
               src={
                 post.author.img
                   ? post.author.img
@@ -39,7 +39,7 @@ const Post = ({ post }: any) => {
             />
           </div>
           <div className="flex items-center ml-2">
-            <h3 className="flex items-center font-semibold text-base">
+            <h3 className="flex items-center font-semibold text-sm">
               {post.author.username}
               <LuDot />
             </h3>
@@ -68,20 +68,13 @@ const Post = ({ post }: any) => {
           <IoShareSocial />
         </div>
       </div>
-      {post.likes !== 0 ? (
-        <div className="text-gray-600 text-sm px-2 md:px-1">
-          Liked by{' '}
-          <span className="text-black font-semibold">good_luck_0701</span> and{' '}
-          <span className="text-black font-semibold">others</span>
-        </div>
-      ) : (
-        <div className="text-sm font-medium px-2 md:px-1">
-          {post.likes} likes
-        </div>
-      )}
+      <div className="text-sm font-medium px-2 md:px-1">{post.likes} likes</div>
       {post.caption && (
-        <div className="text-sm font-medium mt-2 px-2 md:px-1">
-          {post.caption}
+        <div className="flex gap-2 text-sm  mt-2 px-2 md:px-1">
+          <h3 className="flex items-center font-semibold">
+            {post.author.username}
+          </h3>{' '}
+          <span className="">{post.caption}</span>
         </div>
       )}
     </div>
