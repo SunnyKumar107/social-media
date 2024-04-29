@@ -12,7 +12,7 @@ export default function LoginForm() {
     if (session?.status === 'authenticated') {
       router.replace('/')
     }
-  }, [session])
+  }, [session, router])
 
   const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)

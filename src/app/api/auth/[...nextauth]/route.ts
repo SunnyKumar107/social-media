@@ -12,7 +12,7 @@ export const authOptions: any = {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials: any) {
+      async authorize(credentials: any): Promise<any> {
         try {
           const user = await getUser(credentials?.email)
           if (user) {
