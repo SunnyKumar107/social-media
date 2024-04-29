@@ -2,11 +2,23 @@
 
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { TailSpin } from 'react-loader-spinner'
 
 export default function LoginForm() {
   const session = useSession()
   const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false)
+  const [errMsg, setErrMsg] = useState('')
+  const [loader, setLoader] = useState(false)
+
+  const displayErr = (msg: string) => {
+    setErrMsg(msg)
+    setTimeout(() => {
+      setErrMsg('')
+    }, 3000)
+  }
 
   useEffect(() => {
     if (session?.status === 'authenticated') {
@@ -15,21 +27,23 @@ export default function LoginForm() {
   }, [session, router])
 
   const isValidEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    return pattern
   }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
+    setLoader(true)
     const email = e.target.email.value
     const password = e.target.password.value
 
     if (!isValidEmail(email)) {
-      console.log('invalid email')
+      displayErr('invalid email')
       return null
     }
 
     if (!password || password.length < 6) {
-      console.log('password must be at least 6 characters')
+      displayErr('password must be at least 6 characters')
       return null
     }
 
@@ -40,7 +54,7 @@ export default function LoginForm() {
     })
 
     if (res?.error) {
-      console.log('Invalid email or password')
+      displayErr('Invalid email or password')
       return
     } else {
       router.replace('/')
@@ -48,51 +62,76 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
-      <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className="mb-3 text-2xl">Please log in to continue.</h1>
-        <div className="w-full">
-          <div>
-            <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <div className="relative">
-              <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                id="email"
-                type="text"
-                name="email"
-                placeholder="Enter your email address"
-                required
-              />
-            </div>
-          </div>
-          <div className="mt-4">
-            <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <div className="relative">
-              <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                id="password"
-                type="password"
-                name="password"
-                placeholder="Enter password"
-                required
-              />
-            </div>
-          </div>
-        </div>
+    <form
+      onSubmit={handleSubmit}
+      className="w-[500px] h-[400px] flex flex-col items-center justify-center shadow-lg shadow-gray-300 px-2 py-8"
+    >
+      <div className="w-full text-center">
+        <h1 className="text-2xl font-mono mb-0">LOGIN</h1>
+        <p className="text-sm text-gray-500 font-medium">
+          Please enter your credentials
+        </p>
+      </div>
 
-        <button className="mt-4 w-full rounded-lg bg-sky-500 px-4 py-3 font-medium text-white">
-          Log in
-        </button>
+      <div className="w-full min-h-8 flex items-center space-x-1 text-start px-4 py-1 text-red-500 text-base font-medium">
+        {errMsg && (
+          <>
+            <FaExclamationCircle />
+            <p className="">{errMsg}</p>{' '}
+          </>
+        )}
+      </div>
+      <div className="flex flex-col gap-6 w-full">
+        <label className="border-b-2" htmlFor="email">
+          <input
+            className="peer block w-full rounded-md px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
+            id="email"
+            type="text"
+            name="email"
+            placeholder="Email"
+            required
+          />
+        </label>
+        <label className="border-b-2 flex items-center" htmlFor="password">
+          <input
+            className="peer block w-full rounded-md px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <div className="text-gray-600 text-lg relative right-4 font-medium float-right">
+            {showPassword ? (
+              <FaEyeSlash
+                className="cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <FaEye
+                className="cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
+          </div>
+        </label>
+      </div>
+      <button className="mt-8 w-full rounded-md px-3 py-2 bg-slate-800 hover:bg-slate-700 font-semibold text-base text-center text-white">
+        {loader ? (
+          <span className="w-full flex justify-center">
+            <TailSpin color="white" strokeWidth={4} height={20} width={20} />
+          </span>
+        ) : (
+          'LOGIN'
+        )}
+      </button>
+      <div className="mt-4 font-semibold text-center">
+        <p className="text-sm text-gray-500">
+          Don't have an account?{' '}
+          <span className="text-sky-500 cursor-pointer underline">
+            Register
+          </span>
+        </p>
       </div>
     </form>
   )
