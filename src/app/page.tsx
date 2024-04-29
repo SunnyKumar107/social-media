@@ -1,6 +1,8 @@
 import Post from '@/components/Post'
 import Suggest from '@/components/Suggest'
 import { getPostTable } from '@/server/db'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 const displayPost = async () => {
   const postsData = await getPostTable()
@@ -18,6 +20,11 @@ const displayPost = async () => {
 }
 
 export default async function Home() {
+  const session = await getServerSession()
+  if (!session) {
+    redirect('/login')
+  }
+
   return (
     <main className="flex justify-center min-h-screen md:ml-60 md:py-4">
       {displayPost()}

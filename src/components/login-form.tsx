@@ -1,15 +1,56 @@
 'use client'
 
-import { useFormState, useFormStatus } from 'react-dom'
-import { authenticate } from '@/lib/action'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function LoginForm() {
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined)
+  const session = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (session?.status === 'authenticated') {
+      router.replace('/')
+    }
+  }, [session])
+
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    const email = e.target.email.value
+    const password = e.target.password.value
+
+    if (!isValidEmail(email)) {
+      console.log('invalid email')
+      return null
+    }
+
+    if (!password || password.length < 6) {
+      console.log('password must be at least 6 characters')
+      return null
+    }
+
+    const res = await signIn('credentials', {
+      redirect: false,
+      email,
+      password
+    })
+
+    if (res?.error) {
+      console.log('Invalid email or password')
+      return
+    } else {
+      router.replace('/')
+    }
+  }
 
   return (
-    <form action={dispatch} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={` mb-3 text-2xl`}>Please log in to continue.</h1>
+        <h1 className="mb-3 text-2xl">Please log in to continue.</h1>
         <div className="w-full">
           <div>
             <label
@@ -22,7 +63,7 @@ export default function LoginForm() {
               <input
                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="email"
-                type="email"
+                type="text"
                 name="email"
                 placeholder="Enter your email address"
                 required
@@ -44,29 +85,15 @@ export default function LoginForm() {
                 name="password"
                 placeholder="Enter password"
                 required
-                minLength={6}
               />
             </div>
           </div>
         </div>
-        <LoginButton />
-      </div>
-      <div>
-      {
-      errorMessage && <p className="text-red-500">{errorMessage}</p>
-      }
+
+        <button className="mt-4 w-full rounded-lg bg-sky-500 px-4 py-3 font-medium text-white">
+          Log in
+        </button>
       </div>
     </form>
-  )
-}
-
-function LoginButton() {
-  const { pending } = useFormStatus()
-
-  return (
-    <button className="mt-4 w-full" aria-disabled={pending}>
-      Log in
-      {/* <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" /> */}
-    </button>
   )
 }

@@ -1,7 +1,12 @@
+'use client'
+
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 const Profile = ({ user }: any) => {
+  const { data: session } = useSession()
+
   return (
     <div className="flex flex-col justify-start mt-14 mb-12 md:mb-0 md:mt-0 md:ml-60 md:px-4 lg:px-16 py-4 md:py-8">
       <div className="px-0 md:px-12 border-b w-full h-fit border-gray-300">
@@ -37,14 +42,16 @@ const Profile = ({ user }: any) => {
           <h4 className="font-medium text-lg">{user.name}</h4>
           {user.bio && <p className="text-gray-800">{user.bio}</p>}
         </div>
-        <div className="flex w-full gap-4 p-2">
-          <button className="bg-gray-200 max-w-72 hover:bg-gray-300 text-sm font-medium rounded-md w-full py-1  space-x-4">
-            Edit Profile
-          </button>
-          <button className="bg-gray-200 max-w-72 hover:bg-gray-300 text-sm font-medium rounded-md w-full py-1 space-x-4">
-            Share Profile
-          </button>
-        </div>
+        {session?.user?.email === user?.email && (
+          <div className="flex w-full gap-4 p-2">
+            <button className="bg-gray-200 max-w-72 hover:bg-gray-300 text-sm font-medium rounded-md w-full py-1  space-x-4">
+              Edit Profile
+            </button>
+            <button className="bg-gray-200 max-w-72 hover:bg-gray-300 text-sm font-medium rounded-md w-full py-1 space-x-4">
+              Share Profile
+            </button>
+          </div>
+        )}
       </div>
       <div className="">
         <h2 className="text-sm font-medium p-2">POSTS</h2>

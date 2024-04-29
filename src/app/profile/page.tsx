@@ -1,9 +1,11 @@
 import Profile from '@/components/user-profile'
 import { getUserTable } from '@/server/db'
+import { getServerSession } from 'next-auth'
 
 const page = async () => {
-  const postData = await getUserTable()
-  const user = postData[0]
+  const session = await getServerSession()
+  const userData = await getUserTable()
+  const user = userData.find((user) => user.email === session?.user?.email)
 
   return <Profile user={user} />
 }
