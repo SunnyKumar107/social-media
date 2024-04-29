@@ -127,7 +127,7 @@ export default function LoginForm() {
       </button>
       <div className="mt-4 font-semibold text-center">
         <p className="text-sm text-gray-500">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <span className="text-sky-500 cursor-pointer underline">
             Register
           </span>
