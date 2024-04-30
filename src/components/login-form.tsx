@@ -15,6 +15,7 @@ export default function LoginForm() {
 
   const displayErr = (msg: string) => {
     setErrMsg(msg)
+    setLoader(false)
     setTimeout(() => {
       setErrMsg('')
     }, 3000)
@@ -57,6 +58,7 @@ export default function LoginForm() {
       displayErr('Invalid email or password')
       return
     } else {
+      setLoader(false)
       router.replace('/')
     }
   }
@@ -119,7 +121,7 @@ export default function LoginForm() {
       <button className="mt-8 w-full rounded-md px-3 py-2 bg-slate-800 hover:bg-slate-700 font-semibold text-base text-center text-white">
         {loader ? (
           <span className="w-full flex justify-center">
-            <TailSpin color="white" strokeWidth={4} height={20} width={20} />
+            <TailSpin color="white" strokeWidth={4} height={24} width={18} />
           </span>
         ) : (
           'LOGIN'

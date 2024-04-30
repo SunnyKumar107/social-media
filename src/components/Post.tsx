@@ -21,6 +21,7 @@ const Post = ({ post }: any) => {
     } else if (totalTime < day) {
       return `${Math.floor(totalTime / hour)} hours ago`
     } else {
+      if (totalTime < 2 * day) return '1 day ago'
       return `${Math.floor(totalTime / day)} days ago`
     }
   }
@@ -29,7 +30,10 @@ const Post = ({ post }: any) => {
     <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 py-2">
       <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
         <div className="flex items-center">
-          <Link href={`/${post.author.username}`} className="flex items-centre w-8 h-8 rounded-full overflow-hidden bg-gray-200">
+          <Link
+            href={`/${post.author.username}`}
+            className="flex items-centre w-8 h-8 rounded-full overflow-hidden bg-gray-200"
+          >
             <Image
               src={
                 post.author.img
