@@ -64,8 +64,8 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="w-full max-w-[500px] flex flex-col items-center justify-center">
-      <form onSubmit={handleSubmit} className="w-full h-full  px-2 py-8">
+    <div className="flex items-center justify-center w-full max-w-[500px] md:w-[500px] h-[450px] bg-white rounded-sm shadow p-2">
+      <form onSubmit={handleSubmit} className="w-full">
         <div className="w-full text-center">
           <h1 className="text-2xl font-mono mb-0">LOGIN</h1>
           <p className="text-sm text-gray-500 font-medium">
@@ -73,14 +73,12 @@ export default function LoginForm() {
           </p>
         </div>
 
-        <div className="w-full min-h-8 flex items-center space-x-1 text-start px-4 py-1 text-red-500 text-base font-medium">
-          {errMsg && (
-            <>
-              <FaExclamationCircle />
-              <p className="">{errMsg}</p>{' '}
-            </>
-          )}
-        </div>
+        {errMsg && (
+          <div className="w-full flex items-center justify-center space-x-1 px-4 py-1 bg-red-100 text-red-500 text-sm font-semibold rounded-sm my-2">
+            <FaExclamationCircle />
+            <p className="">{errMsg}</p>{' '}
+          </div>
+        )}
         <div className="flex flex-col gap-6 w-full">
           <label className="border-b-2" htmlFor="email">
             <input

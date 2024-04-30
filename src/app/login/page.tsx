@@ -2,7 +2,7 @@ import LoginForm from '../../components/login-form'
 
 export default function LoginPage() {
   return (
-    <main className="flex items-center justify-center w-full h-screen">
+    <main className="w-full min-h-screen flex justify-center items-center bg-[#f0f2f5]">
       <LoginForm />
     </main>
   )
