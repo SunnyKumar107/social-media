@@ -62,7 +62,13 @@ const Post = ({ post }: any) => {
         </div>
       </div>
       <div className="flex items-center w-full max-h-[500px] overflow-hidden bg-gray-200">
-        <Image src={post.img} alt={post.caption} width={500} height={500} />
+        <Image
+          src={post.img}
+          alt={post.caption}
+          width={500}
+          height={500}
+          className="w-full"
+        />
       </div>
       <div className="flex items-center justify-between text-[24px] text-gray-700 px-2 md:px-1 my-2">
         <div className="flex space-x-5">

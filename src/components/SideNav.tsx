@@ -1,28 +1,27 @@
 'use client'
 
 import Link from 'next/link'
-import { FaUser } from 'react-icons/fa'
-import { IoMdNotifications, IoMdPower } from 'react-icons/io'
+import { FaAngleLeft, FaAngleRight, FaUser } from 'react-icons/fa'
+import { IoMdNotifications } from 'react-icons/io'
 import { IoHomeSharp, IoSearch } from 'react-icons/io5'
-import { MdAddBox } from 'react-icons/md'
+import { MdAddBox, MdOutlineSettings } from 'react-icons/md'
 import Logo from './Logo'
 import { usePathname } from 'next/navigation'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
+import Setting from './settings'
+import { useState } from 'react'
 
 const SideNav = () => {
   const pathname = usePathname()
+  const [showSetting, setShowSetting] = useState(false)
   const { data: session } = useSession()
   if (!session) {
     return null
   }
 
-  const handleLogout = () => {
-    signOut()
-  }
-
   return (
     <section className="flex md:flex-col w-screen md:w-60 bg-white md:border-r-[1px] border-t-[1px] md:border-t-0 border-gray-200 h-12 md:h-screen fixed md:p-3 bottom-0">
-      <div className="hidden md:block">
+      <div className="hidden md:block px-2 py-4">
         <Logo />
       </div>
       <div className="flex md:flex-col w-full h-full justify-between">
@@ -69,13 +68,18 @@ const SideNav = () => {
           </Link>
         </div>
         <div
-          onClick={handleLogout}
-          className="cursor-pointer  px-4 py-3 mb-2 text-[17px] hidden md:flex items-center justify-start space-x-2"
+          className="hidden md:flex w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg px-4 py-2 mb-1 font-medium text-base space-x-3"
+          onClick={() => setShowSetting(!showSetting)}
         >
-          <div className="bg-slate-900 hover:bg-slate-700 rounded-full text-white p-2 text-base">
-            <IoMdPower />
+          <div className="text-2xl">
+            <MdOutlineSettings />
           </div>
-          <span>Log out</span>
+          <div className="w-full flex items-center justify-between">
+            Settings {showSetting ? <FaAngleLeft /> : <FaAngleRight />}
+          </div>
+        </div>
+        <div className="absolute left-60 bottom-0 z-10">
+          {showSetting && <Setting setShowSetting={setShowSetting} />}
         </div>
       </div>
     </section>

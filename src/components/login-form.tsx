@@ -66,7 +66,7 @@ export default function LoginForm() {
   return (
     <div className="flex items-center justify-center w-full max-w-[500px] md:w-[500px] h-[450px] bg-white rounded-sm shadow p-2">
       <form onSubmit={handleSubmit} className="w-full">
-        <div className="w-full text-center">
+        <div className="w-full text-center mb-2">
           <h1 className="text-2xl font-mono mb-0">LOGIN</h1>
           <p className="text-sm text-gray-500 font-medium">
             Please enter your credentials
@@ -74,7 +74,7 @@ export default function LoginForm() {
         </div>
 
         {errMsg && (
-          <div className="w-full flex items-center justify-center space-x-1 px-4 py-1 bg-red-100 text-red-500 text-sm font-semibold rounded-sm my-2">
+          <div className="w-full flex items-center justify-center space-x-1 px-4 py-1 bg-red-100 text-red-500 text-sm font-semibold rounded-sm mb-2">
             <FaExclamationCircle />
             <p className="">{errMsg}</p>{' '}
           </div>
