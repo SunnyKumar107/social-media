@@ -1,7 +1,14 @@
 import Post from '@/components/Post'
 import { getPostTable } from '@/server/db'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 const page = async ({ params }: any) => {
+  const session = await getServerSession()
+  if (!session) {
+    redirect('/login')
+  }
+
   const postData = await getPostTable()
   const post = postData.find((post) => post.id === params.id)
   return (

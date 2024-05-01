@@ -7,7 +7,6 @@ const page = async () => {
   const session = await getServerSession()
   if (!session) {
     redirect('/login')
-    return
   }
 
   const userData = await getUserTable()
