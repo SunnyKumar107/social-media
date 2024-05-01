@@ -99,7 +99,7 @@ export default function LoginForm() {
               placeholder="Password"
               required
             />
-            <div className="text-gray-600 text-lg relative right-4 font-medium float-right">
+            <div className="text-gray-600 text-lg px-4 py-2 font-medium float-right">
               {showPassword ? (
                 <FaEyeSlash
                   className="cursor-pointer"
@@ -114,7 +114,12 @@ export default function LoginForm() {
             </div>
           </label>
         </div>
-        <button className="mt-8 w-full rounded-md px-3 py-2 bg-slate-800 hover:bg-slate-700 font-semibold text-base text-center text-white">
+        <button
+          className={`mt-8 w-full rounded-md px-3 py-2 bg-slate-800 hover:bg-slate-700 font-semibold text-base text-center text-white ${
+            loader && 'cursor-not-allowed bg-slate-700'
+          }`}
+          disabled={loader}
+        >
           {loader ? (
             <span className="w-full flex justify-center">
               <TailSpin color="white" strokeWidth={4} height={24} width={18} />

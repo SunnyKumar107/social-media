@@ -31,32 +31,41 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
         </h2>
         <p className="text-sm text-gray-800">{session?.user?.email}</p>
       </div>
-      <div
+      <button
         onClick={handleLogout}
-        className="cursor-pointer flex items-center justify-start space-x-2 bg-gray-100 text-slate-900 font-semibold p-2 rounded-lg"
+        disabled={logoutLoading}
+        className={`cursor-pointer flex items-center justify-start space-x-1  text-slate-900 font-semibold p-2 rounded-lg ${
+          logoutLoading && 'cursor-not-allowed'
+        }`}
       >
-        <div className="bg-slate-900 hover:bg-slate-700 rounded-full text-white p-2 text-base">
+        <span className="bg-slate-900 hover:bg-slate-700 rounded-full text-white p-2 text-sm">
           {logoutLoading ? (
             <TailSpin color="white" height={15} width={15} strokeWidth={3} />
           ) : (
             <IoMdPower />
           )}
-        </div>
-        <span>Logout</span>
-      </div>
-      <div
-        onClick={handleLogout}
-        className="cursor-pointer flex items-center justify-start space-x-2 bg-red-100 text-red-700 font-semibold p-2 rounded-lg"
+        </span>
+        <span className="w-full bg-gray-100 text-start px-2 py-1 rounded-md">
+          Logout
+        </span>
+      </button>
+      <button
+        disabled={delLoading}
+        className={`cursor-pointer flex items-center justify-start space-x-1  text-red-700 font-semibold p-2 rounded-lg ${
+          delLoading && 'cursor-not-allowed'
+        }`}
       >
-        <div className="bg-red-700 hover:bg-red-600 rounded-full text-white p-2 text-base">
+        <span className="bg-red-700 hover:bg-red-600 rounded-full text-white p-2 text-sm">
           {delLoading ? (
             <TailSpin color="white" height={15} width={15} strokeWidth={3} />
           ) : (
             <MdDelete />
           )}
-        </div>
-        <span>Delete Account</span>
-      </div>
+        </span>
+        <span className="w-full bg-red-100 text-start px-2 py-1 rounded-md">
+          Delete Account
+        </span>
+      </button>
     </div>
   )
 }
