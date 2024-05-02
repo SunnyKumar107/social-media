@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import {
@@ -14,6 +15,9 @@ const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [errMsg, setErrMsg] = useState('')
   const [loader, setLoader] = useState(false)
+  const [selectImg, setSelectImg] = useState(null)
+  const dummyImg =
+    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
 
   const displayErr = (msg: string) => {
     setErrMsg(msg)
@@ -35,6 +39,7 @@ const RegisterForm = () => {
     const username = e.target.username.value
     const name = e.target.name.value
     const password = e.target.password.value
+    const bio = e.target.bio.value
 
     if (!isValidEmail(email)) {
       displayErr('invalid email')
@@ -46,18 +51,23 @@ const RegisterForm = () => {
       return null
     }
 
-    fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email,
-        username,
-        name,
-        password
-      })
-    }).then((res) => res.json())
+    console.log(email, username, name, password, selectImg, bio)
+
+    // fetch('/api/register', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     email,
+    //     username,
+    //     name,
+    //     password,
+    //     selectImg,
+    //     bio
+    //   })
+    // }).then((res) => res.json())
+    setLoader(false)
   }
 
   return (
@@ -132,16 +142,27 @@ const RegisterForm = () => {
         </div>
         <div className="flex justify-between w-full my-4 px-2">
           <div className="w-28 flex flex-col items-center justify-center">
-            <img
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
-              alt="img-upload"
-              className="w-12 h-12 rounded-full"
-            />
+            <div className="w-12 h-12 rounded-full overflow-hidden">
+              <Image
+                src={selectImg ? URL.createObjectURL(selectImg) : dummyImg}
+                alt="img-upload"
+                width={30}
+                height={30}
+                className="w-full min-h-12 object-cover"
+              />
+            </div>
             <label className="cursor-pointer" htmlFor="img-upload">
-              <FaCamera className="cursor-pointer relative bottom-4 left-16 text-slate-700" />
-              <input type="file" id="img-upload" className="hidden" />
+              <FaCamera className="cursor-pointer relative left-[60px] bottom-4 text-slate-900" />
+              <input
+                type="file"
+                id="img-upload"
+                onChange={(e) => setSelectImg(e.target.files[0])}
+                className="hidden"
+              />
               <p className="text-xs mt-[-8px] font-medium text-center text-slate-700">
-                Upload Profile Picture
+                {selectImg
+                  ? 'change profile picture'
+                  : 'upload profile picture'}
               </p>
             </label>
           </div>
@@ -150,7 +171,7 @@ const RegisterForm = () => {
               name="bio"
               id="bio"
               rows={3}
-              cols={30}
+              cols={25}
               placeholder="Bio"
               className="w-full outline-none resize-none border-b-2 p-2"
             />
