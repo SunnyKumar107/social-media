@@ -156,7 +156,7 @@ const RegisterForm = () => {
               <input
                 type="file"
                 id="img-upload"
-                onChange={(e) => setSelectImg(e.target.files[0])}
+                onChange={(e: any) => setSelectImg(e.target.files[0])}
                 className="hidden"
               />
               <p className="text-xs mt-[-8px] font-medium text-center text-slate-700">
