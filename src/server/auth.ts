@@ -1,7 +1,7 @@
 import { type NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { getUser } from './db'
-const bcrypt = require('bcrypt')
+import bcrypt from 'bcrypt'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
               return user
             }
           }
-        } catch (error: any) {
+        } catch (error: Error | any) {
           throw new Error(error)
         }
       }

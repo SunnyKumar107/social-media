@@ -1,23 +1,19 @@
 'use client'
 
+import { UploadButton } from '@/utils/uploadthing'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import {
-  FaCamera,
-  FaExclamationCircle,
-  FaEye,
-  FaEyeSlash
-} from 'react-icons/fa'
+import { FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { TailSpin } from 'react-loader-spinner'
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [errMsg, setErrMsg] = useState('')
   const [loader, setLoader] = useState(false)
-  const [selectImg, setSelectImg] = useState(null)
-  const dummyImg =
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
+  const [img, setImg] = useState(null)
+  const router = useRouter()
 
   const displayErr = (msg: string) => {
     setErrMsg(msg)
@@ -51,23 +47,7 @@ const RegisterForm = () => {
       return null
     }
 
-    console.log(email, username, name, password, selectImg, bio)
-
-    // fetch('/api/register', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     email,
-    //     username,
-    //     name,
-    //     password,
-    //     selectImg,
-    //     bio
-    //   })
-    // }).then((res) => res.json())
-    setLoader(false)
+    console.log(email, username, name, password, img, bio)
   }
 
   return (
@@ -88,7 +68,7 @@ const RegisterForm = () => {
         <div className="flex flex-col gap-6 w-full">
           <label className="border-b-2" htmlFor="email">
             <input
-              className="peer block w-full rounded-md px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
+              className="peer block w-full px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
               id="email"
               type="text"
               name="email"
@@ -98,7 +78,7 @@ const RegisterForm = () => {
           </label>
           <label className="border-b-2" htmlFor="username">
             <input
-              className="peer block w-full rounded-md px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
+              className="peer block w-full px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
               id="username"
               type="text"
               name="username"
@@ -108,7 +88,7 @@ const RegisterForm = () => {
           </label>
           <label className="border-b-2" htmlFor="name">
             <input
-              className="peer block w-full rounded-md px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
+              className="peer block w-full px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
               id="name"
               type="text"
               name="name"
@@ -118,7 +98,7 @@ const RegisterForm = () => {
           </label>
           <label className="border-b-2 flex items-center" htmlFor="password">
             <input
-              className="peer block w-full rounded-md px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
+              className="peer block w-full px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
               id="password"
               type={showPassword ? 'text' : 'password'}
               name="password"
@@ -140,40 +120,42 @@ const RegisterForm = () => {
             </div>
           </label>
         </div>
-        <div className="flex justify-between w-full my-4 px-2">
-          <div className="w-28 flex flex-col items-center justify-center">
-            <div className="w-12 h-12 rounded-full overflow-hidden">
-              <Image
-                src={selectImg ? URL.createObjectURL(selectImg) : dummyImg}
-                alt="img-upload"
-                width={30}
-                height={30}
-                className="w-full min-h-12 object-cover"
-              />
-            </div>
-            <label className="cursor-pointer" htmlFor="img-upload">
-              <FaCamera className="cursor-pointer relative left-[60px] bottom-4 text-slate-900" />
-              <input
-                type="file"
-                id="img-upload"
-                onChange={(e: any) => setSelectImg(e.target.files[0])}
-                className="hidden"
-              />
-              <p className="text-xs mt-[-8px] font-medium text-center text-slate-700">
-                {selectImg
-                  ? 'change profile picture'
-                  : 'upload profile picture'}
-              </p>
-            </label>
+        <div className="flex justify-between w-full my-4">
+          <div className="flex items-center justify-center">
+            {img ? (
+              <div className="flex items-center justify-center w-32">
+                <div className="w-20 h-20 bg-gray-200 rounded-full overflow-hidden">
+                  <Image
+                    src={img}
+                    alt="img-upload"
+                    width={30}
+                    height={30}
+                    className="w-full min-h-20 object-cover"
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center w-full h-full border border-dotted border-slate-300 rounded p-1">
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res: any) => {
+                    setImg(res[0].url)
+                  }}
+                  onUploadError={(error: Error) => {
+                    displayErr(error.message)
+                  }}
+                />
+              </div>
+            )}
           </div>
-          <div className="text-slate-700">
+          <div className="border-b-2">
             <textarea
               name="bio"
               id="bio"
               rows={3}
-              cols={25}
+              cols={23}
               placeholder="Bio"
-              className="w-full outline-none resize-none border-b-2 p-2"
+              className="peer block w-full h-full resize-none px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
             />
           </div>
         </div>
