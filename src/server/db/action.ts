@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
 import { db } from '.'
 import { posts, users } from './schema'
-import bcrypt from 'bcrypt'
+const bcrypt = require('bcrypt')
 
 export const createUser = async (
   email: string,

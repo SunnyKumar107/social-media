@@ -1,7 +1,7 @@
 import { type NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { getUser } from './db'
-import bcrypt from 'bcrypt'
+const bcrypt = require('bcrypt')
 
 export const authOptions: NextAuthOptions = {
   providers: [
