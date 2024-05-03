@@ -1,18 +1,22 @@
 'use client'
 
+import { imageRemove } from '@/lib/imageRemove'
 import { UploadButton } from '@/utils/uploadthing'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { RxCross2 } from 'react-icons/rx'
 import { TailSpin } from 'react-loader-spinner'
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [errMsg, setErrMsg] = useState('')
   const [loader, setLoader] = useState(false)
-  const [img, setImg] = useState(null)
+  const [imgUrl, setImgUrl] = useState('')
+  const [imgKey, setImgKey] = useState('')
+  const [delLoading, setDelLoading] = useState(false)
   const router = useRouter()
 
   const displayErr = (msg: string) => {
@@ -21,6 +25,16 @@ const RegisterForm = () => {
     setTimeout(() => {
       setErrMsg('')
     }, 3000)
+  }
+
+  const handleDelete = async () => {
+    setDelLoading(!delLoading)
+    const res = await imageRemove(imgKey)
+    if (res.success) {
+      setDelLoading(false)
+      setImgKey('')
+      setImgUrl('')
+    }
   }
 
   const isValidEmail = (email: string) => {
@@ -47,7 +61,7 @@ const RegisterForm = () => {
       return null
     }
 
-    console.log(email, username, name, password, img, bio)
+    console.log(email, username, name, password, imgUrl, bio)
   }
 
   return (
@@ -122,12 +136,28 @@ const RegisterForm = () => {
         </div>
         <div className="flex justify-between w-full my-4">
           <div className="flex items-center justify-center">
-            {img ? (
-              <div className="flex items-center justify-center w-32">
+            {imgUrl ? (
+              <div className="flex flex-col items-center justify-center w-32 relative">
+                <button
+                  onClick={handleDelete}
+                  disabled={delLoading}
+                  className="absolute top-0 right-2 bg-slate-800 hover:bg-slate-700 rounded-full text-white p-1 text-sm font-medium"
+                >
+                  {delLoading ? (
+                    <TailSpin
+                      color="white"
+                      height={15}
+                      width={15}
+                      strokeWidth={4}
+                    />
+                  ) : (
+                    <RxCross2 />
+                  )}
+                </button>
                 <div className="w-20 h-20 bg-gray-200 rounded-full overflow-hidden">
                   <Image
-                    src={img}
-                    alt="img-upload"
+                    src={imgUrl}
+                    alt="imgUrl-upload"
                     width={30}
                     height={30}
                     className="w-full min-h-20 object-cover"
@@ -139,7 +169,8 @@ const RegisterForm = () => {
                 <UploadButton
                   endpoint="imageUploader"
                   onClientUploadComplete={(res: any) => {
-                    setImg(res[0].url)
+                    setImgUrl(res[0].url)
+                    setImgKey(res[0].key)
                   }}
                   onUploadError={(error: Error) => {
                     displayErr(error.message)
@@ -153,9 +184,9 @@ const RegisterForm = () => {
               name="bio"
               id="bio"
               rows={3}
-              cols={23}
+              cols={20}
               placeholder="Bio"
-              className="peer block w-full h-full resize-none px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
+              className="peer block w-full h-full resize-none p-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
             />
           </div>
         </div>
