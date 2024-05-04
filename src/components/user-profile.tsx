@@ -11,8 +11,8 @@ const Profile = ({ user }: any) => {
   return (
     <div className="flex flex-col justify-start mt-14 mb-12 md:mb-0 md:mt-0 md:ml-60 md:px-4 lg:px-16 py-4 md:py-8">
       <div className="px-0 xl:px-12 border-b w-full h-fit border-gray-300">
-        <div className="flex items-center space-x-4 lg:space-x-8 justify-between md:justify-start w-screen md:w-full px-2">
-          <div className="w-16 h-16 md:w-28 md:h-28 lg:w-36 lg:h-36 rounded-full bg-gray-200 overflow-hidden">
+        <div className="flex items-center space-x-4 lg:space-x-8 justify-between md:justify-start w-screen md:w-full px-4">
+          <div className="w-20 h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 rounded-full bg-gray-200 overflow-hidden">
             <Image
               className="object-cover w-full min-h-full"
               src={
@@ -25,7 +25,7 @@ const Profile = ({ user }: any) => {
               height={50}
             />
           </div>
-          <div className="flex justify-between w-56 sm:w-full  max-w-[350px] md:w-[350px] text-center p-2 md:py-8">
+          <div className="flex justify-between w-56 sm:w-full  max-w-[350px] md:w-[350px] text-center py-2 md:py-8">
             <div>
               <h4 className="font-medium text-lg">{user.posts.length}</h4>
               <p className="text-gray-600 text-sm">post</p>
