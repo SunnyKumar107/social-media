@@ -28,7 +28,7 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
   }
 
   return (
-    <div className="flex flex-col gap-2 h-60 w-60 py-2 bg-white shadow overflow-hidden relative">
+    <div className="flex flex-col gap-2 h-60 w-60  bg-white shadow overflow-hidden relative">
       <div className="w-full flex items-center justify-between border-b-2 border-gray-200">
         <h1 className="text-xl text-slate-700 font-semibold px-2">Settings</h1>
         <button

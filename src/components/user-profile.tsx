@@ -40,12 +40,12 @@ const Profile = ({ user }: any) => {
             </div>
           </div>
         </div>
-        <div className="py-2 px-2 md:px-4">
+        <div className="py-2 px-4 md:px-8">
           <h4 className="font-medium text-base md:text-lg text-slate-900 ">
             {user.name}
           </h4>
           {user.bio && (
-            <p className="text-gray-800 font-light text-sm">{user.bio}</p>
+            <p className="text-gray-800 font-normal text-sm">{user.bio}</p>
           )}
         </div>
 
@@ -66,12 +66,12 @@ const Profile = ({ user }: any) => {
       </div>
       <div className="">
         {user.posts.length ? (
-          <div className="grid grid-cols-3 gap-1 w-full px-2">
+          <div className="grid grid-cols-3 gap-1 w-full p-1">
             {user.posts.map((post: any) => (
               <Link
                 href={`/post/${post.id}`}
                 key={post.id}
-                className="w-[123px] md:w-52 lg:w-80 h-[123px] md:h-52 lg:h-80 bg-gray-200 mb-1 overflow-hidden"
+                className="w-[125px] md:w-52 lg:w-80 h-[125px] md:h-52 lg:h-80 bg-gray-200 mb-1 overflow-hidden"
               >
                 <Image
                   className="w-full h-full object-cover"
