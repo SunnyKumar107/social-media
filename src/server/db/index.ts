@@ -7,6 +7,14 @@ export const db = drizzle(sql, { schema })
 
 export const getUserTable = async () => {
   const result = await db.query.users.findMany({
+    columns: {
+      email: true,
+      username: true,
+      name: true,
+      img: true,
+      bio: true,
+      id: true
+    },
     with: {
       posts: true
     }

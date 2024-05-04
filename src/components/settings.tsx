@@ -1,6 +1,6 @@
 'use client'
 
-import { getServerSession } from 'next-auth'
+import { deleteUser } from '@/server/db/action'
 import { signOut, useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { AiOutlineDelete } from 'react-icons/ai'
@@ -18,16 +18,25 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
     signOut()
   }
 
+  const handleDeleteAccount = async () => {
+    setDelLoading(true)
+    const res = await deleteUser(session?.user?.email)
+    if (res.success) {
+      setDelLoading(false)
+      handleLogout()
+    }
+  }
+
   return (
     <div className="flex flex-col gap-2 h-60 w-60 py-2 bg-white shadow overflow-hidden relative">
-      <button
-        className="absolute top-0 right-0 bg-gray-100 hover:bg-gray-200 p-2 text-xl"
-        onClick={() => setShowSetting(false)}
-      >
-        <RxCross2 />
-      </button>
-      <div className="w-full px-2 pb-1 border-b-2 border-gray-200">
-        <h1 className="text-xl text-slate-700 font-semibold">Settings</h1>
+      <div className="w-full flex items-center justify-between border-b-2 border-gray-200">
+        <h1 className="text-xl text-slate-700 font-semibold px-2">Settings</h1>
+        <button
+          className="bg-gray-100 hover:bg-gray-200 p-2 text-xl"
+          onClick={() => setShowSetting(false)}
+        >
+          <RxCross2 />
+        </button>
       </div>
       <div className="p-2">
         <button
@@ -47,6 +56,7 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
           <span className="text-start">Logout</span>
         </button>
         <button
+          onClick={handleDeleteAccount}
           disabled={delLoading}
           className={`cursor-pointer flex items-center justify-start space-x-1  text-red-700 font-normal   ${
             delLoading && 'cursor-not-allowed'
