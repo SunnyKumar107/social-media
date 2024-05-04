@@ -1,6 +1,7 @@
 'use client'
 
 import { imageRemove } from '@/lib/imageRemove'
+import { createUser } from '@/server/db/action'
 import { UploadButton } from '@/utils/uploadthing'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -42,7 +43,7 @@ const RegisterForm = () => {
     return pattern
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
     setLoader(true)
     const email = e.target.email.value
@@ -61,7 +62,22 @@ const RegisterForm = () => {
       return null
     }
 
-    console.log(email, username, name, password, imgUrl, bio)
+    const res = await createUser({
+      email,
+      username,
+      name,
+      password,
+      imgUrl,
+      bio
+    })
+    if (res.success) {
+      setLoader(false)
+      router.replace('/login')
+    }
+    if (!res.success) {
+      setLoader(false)
+      displayErr(res.message)
+    }
   }
 
   return (

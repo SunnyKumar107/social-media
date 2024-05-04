@@ -1,16 +1,13 @@
+'use server'
+
 import { eq } from 'drizzle-orm'
 import { db } from '.'
 import { posts, users } from './schema'
 const bcrypt = require('bcrypt')
 
-export const createUser = async (
-  email: string,
-  username: string,
-  name: string,
-  password: string,
-  img?: string | null,
-  bio?: string
-) => {
+export const createUser = async (userData: any) => {
+  console.log('userData', userData)
+  const { email, username, name, password, imgUrl, bio } = userData
   if (!email || !username || !name || !password) {
     return {
       success: false,
@@ -23,7 +20,7 @@ export const createUser = async (
     .select()
     .from(users)
     .where(eq(users.email, email))
-  if (!isEmailExist.length) {
+  if (isEmailExist.length) {
     return {
       success: false,
       message: 'email already exist',
@@ -35,7 +32,7 @@ export const createUser = async (
     .select()
     .from(users)
     .where(eq(users.username, username))
-  if (!isUsernameExist.length) {
+  if (isUsernameExist.length) {
     return {
       success: false,
       message: 'username already exist',
@@ -49,15 +46,13 @@ export const createUser = async (
     email: email,
     name: name,
     passwordHash: passwordHash,
-    img: img,
+    img: imgUrl,
     bio: bio
   })
-  console.log('user created', newUser)
   return {
     success: true,
     message: 'user created',
-    statuscode: 200,
-    data: newUser
+    statuscode: 200
   }
 }
 
