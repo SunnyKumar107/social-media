@@ -25,7 +25,7 @@ const Profile = ({ user }: any) => {
               height={50}
             />
           </div>
-          <div className="flex justify-between w-full max-w-[350px] md:w-[350px] text-center py-2 md:py-8">
+          <div className="flex justify-between w-56 sm:w-full  max-w-[350px] md:w-[350px] text-center p-2 md:py-8">
             <div>
               <h4 className="font-medium text-lg">{user.posts.length}</h4>
               <p className="text-gray-600 text-sm">post</p>
@@ -53,7 +53,7 @@ const Profile = ({ user }: any) => {
               Edit Profile
             </button>
           ) : (
-            <button className="bg-blue-600 max-w-72 hover:bg-blue-500 text-sm text-white font-medium rounded-md w-full py-2  space-x-4">
+            <button className="bg-sky-600 max-w-72 hover:bg-sky-500 text-sm text-white font-medium rounded-md w-full py-2  space-x-4">
               Follow
             </button>
           )}
