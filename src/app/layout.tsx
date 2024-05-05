@@ -7,6 +7,12 @@ import { getServerSession } from 'next-auth'
 import SessionProvider from '@/utils/SessionProvider'
 import { Toaster } from '@/components/ui/toaster'
 
+// Remove loading from uploadthing
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
+import { extractRouterConfig } from 'uploadthing/server'
+import { ourFileRouter } from './api/uploadthing/core'
+//
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -24,6 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <SessionProvider session={session}>
           <Header />
           <SideNav />

@@ -57,7 +57,7 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
         <button
           onClick={handleLogout}
           disabled={logoutLoading}
-          className={`cursor-pointer flex items-center justify-start space-x-1  text-slate-900 font-normal  ${
+          className={`cursor-pointer flex items-center justify-start space-x-1  text-slate-900 font-normal py-1  ${
             logoutLoading && 'cursor-not-allowed'
           }`}
         >
@@ -73,7 +73,7 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
         <button
           onClick={handleDeleteAccount}
           disabled={delLoading}
-          className={`cursor-pointer flex items-center justify-start space-x-1  text-red-700 font-normal   ${
+          className={`cursor-pointer flex items-center justify-start space-x-1  text-red-700 font-normal py-1  ${
             delLoading && 'cursor-not-allowed'
           }`}
         >
