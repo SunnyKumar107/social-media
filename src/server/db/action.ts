@@ -2,7 +2,7 @@
 
 import { eq } from 'drizzle-orm'
 import { db } from '.'
-import { posts, users } from './schema'
+import { posts, users, comments, likes } from './schema'
 const bcrypt = require('bcrypt')
 
 export const createUser = async (userData: any) => {
@@ -91,4 +91,17 @@ export const createPost = async (
     img: img
   })
   console.log('post created')
+}
+
+export const addComment = async (
+  postId: string,
+  authorId: string,
+  comment: string
+) => {
+  await db.insert(comments).values({
+    postId: postId,
+    authorId: authorId,
+    comment: comment
+  })
+  console.log('Comment added')
 }

@@ -1,11 +1,20 @@
 import Post from '@/components/Post'
 import Suggest from '@/components/Suggest'
-import { getPostTable } from '@/server/db'
+import { getCommentsTable, getPostTable } from '@/server/db'
+import { addComment } from '@/server/db/action'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 const displayPost = async () => {
   const postsData = await getPostTable()
+  // const comments = await getCommentsTable()
+  // console.log('postsData', postsData[1])
+  // console.log('comments', comments)
+  // await addComment(
+  //   '5d82b887-f56e-4d9c-9f35-2c0d6c65b027',
+  //   'a7a0cdfa-acbf-457e-9c23-d901201861d2',
+  //   'Elephants are the largest living land animals.'
+  // )
   if (!postsData) {
     return null
   }

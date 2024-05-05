@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { BiCommentDetail } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs'
 import { FaRegHeart } from 'react-icons/fa'
@@ -9,6 +10,8 @@ import { IoShareSocial } from 'react-icons/io5'
 import { LuDot } from 'react-icons/lu'
 
 const Post = ({ post }: any) => {
+  const pathname = usePathname()
+
   const timeExtractor = () => {
     const totalTime = Number(new Date()) - Number(new Date(post.createdAt))
     const minute = 1000 * 60
@@ -83,7 +86,9 @@ const Post = ({ post }: any) => {
           <IoShareSocial />
         </div>
       </div>
-      <div className="text-sm font-medium px-2 md:px-1">{post.likes} likes</div>
+      <div className="text-sm font-medium px-2 md:px-1">
+        {post.likes.length} likes
+      </div>
       {post.caption && (
         <div className="flex gap-2 text-sm  mt-2 px-2 md:px-1">
           <h3 className="flex items-center font-semibold">
@@ -91,6 +96,15 @@ const Post = ({ post }: any) => {
           </h3>{' '}
           <span className="">{post.caption}</span>
         </div>
+      )}
+      {post.comments.length > 0 && (
+        <Link
+          href={`/comments/${post.id}`}
+          className="text-sm text-gray-500 font-normal px-2 md:px-1 cursor-pointer"
+        >
+          View {post.comments.length > 1 ? 'all' : ''} {post.comments.length}{' '}
+          {post.comments.length > 1 ? 'comments' : 'comment'}
+        </Link>
       )}
     </div>
   )
