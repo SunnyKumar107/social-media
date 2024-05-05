@@ -10,6 +10,8 @@ import { useState } from 'react'
 import { FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { RxCross2 } from 'react-icons/rx'
 import { TailSpin } from 'react-loader-spinner'
+import { useToast } from './ui/use-toast'
+import { signIn } from 'next-auth/react'
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -19,6 +21,7 @@ const RegisterForm = () => {
   const [imgKey, setImgKey] = useState('')
   const [delLoading, setDelLoading] = useState(false)
   const router = useRouter()
+  const { toast } = useToast()
 
   const displayErr = (msg: string) => {
     setErrMsg(msg)
@@ -72,7 +75,19 @@ const RegisterForm = () => {
     })
     if (res.success) {
       setLoader(false)
-      router.replace('/login')
+      toast({
+        title: 'Account created successfully!'
+      })
+      const res = await signIn('credentials', {
+        redirect: false,
+        email,
+        password
+      })
+      router.replace('/')
+      toast({
+        variant: 'default',
+        description: 'Logged in successfully!'
+      })
     }
     if (!res.success) {
       setLoader(false)

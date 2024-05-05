@@ -5,6 +5,7 @@ import Header from '@/components/Header'
 import SideNav from '@/components/SideNav'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '@/utils/SessionProvider'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,6 +28,7 @@ export default async function RootLayout({
           <Header />
           <SideNav />
           <div>{children}</div>
+          <Toaster />
         </SessionProvider>
       </body>
     </html>

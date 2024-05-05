@@ -28,7 +28,7 @@ const Profile = ({ user }: any) => {
           <div className="flex justify-between w-56 sm:w-full  max-w-[350px] md:w-[350px] text-center py-2 md:py-8">
             <div>
               <h4 className="font-medium text-lg">{user.posts.length}</h4>
-              <p className="text-gray-800 text-sm">post</p>
+              <p className="text-gray-800 text-sm">posts</p>
             </div>
             <div>
               <h4 className="font-medium text-lg">0</h4>

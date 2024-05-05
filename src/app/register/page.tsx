@@ -9,7 +9,7 @@ const page = async () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-[#f0f2f5] p-1">
+    <div className="w-full min-h-screen flex justify-center items-center bg-[#f0f2f5] p-2">
       <RegisterForm />
     </div>
   )

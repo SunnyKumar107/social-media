@@ -6,10 +6,12 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { TailSpin } from 'react-loader-spinner'
+import { useToast } from './ui/use-toast'
 
 export default function LoginForm() {
   const session = useSession()
   const router = useRouter()
+  const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [errMsg, setErrMsg] = useState('')
   const [loader, setLoader] = useState(false)
@@ -49,18 +51,24 @@ export default function LoginForm() {
       return null
     }
 
-    const res = await signIn('credentials', {
-      redirect: false,
-      email,
-      password
-    })
+    try {
+      const res = await signIn('credentials', {
+        redirect: false,
+        email,
+        password
+      })
 
-    if (res?.error) {
-      displayErr('Invalid email or password')
-      return
-    } else {
       setLoader(false)
+      if (res?.error) {
+        displayErr('Invalid email or password')
+        return
+      }
       router.replace('/')
+      toast({
+        description: 'Logged in successfully!'
+      })
+    } catch (error) {
+      displayErr('Some error occurred')
     }
   }
 
