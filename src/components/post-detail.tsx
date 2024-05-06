@@ -2,33 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { BiCommentDetail } from 'react-icons/bi'
-import { BsThreeDots } from 'react-icons/bs'
-import { FaRegHeart } from 'react-icons/fa'
-import { IoShareSocial } from 'react-icons/io5'
 import { LuDot } from 'react-icons/lu'
 
-const Post = ({ post }: any) => {
-  const pathname = usePathname()
-
-  const timeExtractor = () => {
-    const totalTime = Number(new Date()) - Number(new Date(post.createdAt))
-    const minute = 1000 * 60
-    const hour = minute * 60
-    const day = hour * 24
-    if (totalTime < minute) {
-      return `${Math.floor(totalTime / 1000)}sec ago`
-    } else if (totalTime < hour) {
-      return `${Math.floor(totalTime / minute)}mintes ago`
-    } else if (totalTime < day) {
-      return `${Math.floor(totalTime / hour)} hours ago`
-    } else {
-      if (totalTime < 2 * day) return '1 day ago'
-      return `${Math.floor(totalTime / day)} days ago`
-    }
-  }
-
+const PostDetail = ({ post }: any) => {
   return (
     <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 py-2">
       <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
@@ -99,10 +75,8 @@ const Post = ({ post }: any) => {
       )}
       {post.comments.length > 0 && (
         <Link
-          href={`/post/${post.id}`}
-          className={`text-sm text-gray-500 font-normal px-2 md:px-1 cursor-pointer ${
-            pathname === `/post/${post.id}` && 'hidden'
-          }`}
+          href={`/comments/${post.id}`}
+          className="text-sm text-gray-500 font-normal px-2 md:px-1 cursor-pointer"
         >
           View {post.comments.length > 1 ? 'all' : ''} {post.comments.length}{' '}
           {post.comments.length > 1 ? 'comments' : 'comment'}
@@ -112,4 +86,4 @@ const Post = ({ post }: any) => {
   )
 }
 
-export default Post
+export default PostDetail
