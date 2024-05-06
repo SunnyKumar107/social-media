@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { FaRegHeart } from 'react-icons/fa'
 
 const Comment = ({ cmnt }: any) => {
@@ -9,10 +10,13 @@ const Comment = ({ cmnt }: any) => {
   }
   return (
     <div className="flex justify-between w-full px-2 md:px-1 py-2">
-      <div className="flex space-x-2">
-        <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200">
+      <div className="flex items-start space-x-3">
+        <Link
+          href={`/${cmnt.author.username}`}
+          className="w-9 h-9 rounded-full overflow-hidden bg-gray-200"
+        >
           <Image
-            className="min-h-8 object-cover"
+            className="min-h-9 object-cover"
             src={
               cmnt.author.img
                 ? cmnt.author.img
@@ -22,16 +26,19 @@ const Comment = ({ cmnt }: any) => {
             width={40}
             height={40}
           />
-        </div>
-        <div className="text-sm py-1">
-          <span className="text-sm font-medium mr-2">
+        </Link>
+        <div className="flex flex-col justify-start">
+          <Link
+            href={`/${cmnt.author.username}`}
+            className="text-xs font-medium mr-1"
+          >
             {cmnt.author.username}
-          </span>
-          <span className="text-sm">{cmnt.comment}</span>
+          </Link>
+          <p className="text-sm">{cmnt.comment}</p>
         </div>
       </div>
-      <div>
-        <button className="text-xs font-bold px-2 py-1">
+      <div className="">
+        <button className="text-sm font-bold px-2">
           <FaRegHeart />
         </button>
       </div>
