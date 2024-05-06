@@ -30,8 +30,8 @@ const Post = ({ post }: any) => {
   }
 
   return (
-    <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 py-2">
-      <div className="flex items-center justify-between w-full mb-3 px-2 md:px-1">
+    <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 py-1">
+      <div className="flex items-center justify-between w-full px-2 md:px-1 py-1">
         <div className="flex items-center">
           <Link
             href={`/${post.author.username}`}

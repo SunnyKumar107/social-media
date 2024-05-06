@@ -8,7 +8,7 @@ const Comment = ({ cmnt }: any) => {
     return null
   }
   return (
-    <div className="flex justify-between w-full px-2 md:px-1">
+    <div className="flex justify-between w-full px-2 md:px-1 py-2">
       <div className="flex space-x-2">
         <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200">
           <Image
@@ -23,7 +23,7 @@ const Comment = ({ cmnt }: any) => {
             height={40}
           />
         </div>
-        <div className="text-sm">
+        <div className="text-sm py-1">
           <span className="text-sm font-medium mr-2">
             {cmnt.author.username}
           </span>
@@ -31,7 +31,7 @@ const Comment = ({ cmnt }: any) => {
         </div>
       </div>
       <div>
-        <button className="text-xs font-bold px-2">
+        <button className="text-xs font-bold px-2 py-1">
           <FaRegHeart />
         </button>
       </div>

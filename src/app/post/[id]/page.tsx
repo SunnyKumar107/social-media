@@ -17,9 +17,9 @@ const page = async ({ params }: any) => {
     (comment) => comment.postId === params.id
   )
   return (
-    <div className="flex flex-col flex-wrap mt-14 mb-12 md:mb-0 md:mt-0 sm:px-10 md:px-16 xl:px-28 gap-2 md:ml-60 md:py-4">
+    <div className="flex flex-col mt-14 mb-12 md:mb-0 md:mt-0 sm:px-10 md:px-16 xl:px-28 md:ml-60 md:py-4">
       <Post post={post} />
-      <div className="w-full sm:w-[480px] flex flex-col gap-2">
+      <div className="w-full sm:w-[480px] flex flex-col">
         {commentOfPost.map((comment: any) => (
           <Comment key={comment.id} cmnt={comment} />
         ))}
