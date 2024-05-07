@@ -38,7 +38,7 @@ const Comment = ({ cmnt }: any) => {
         </div>
       </div>
       <div className="">
-        <button className="text-sm font-bold px-2">
+        <button className="text-sm font-bold">
           <FaRegHeart />
         </button>
       </div>

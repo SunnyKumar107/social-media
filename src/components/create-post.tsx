@@ -25,23 +25,39 @@ export function PostCreate() {
   const [imgUrl, setImgUrl] = useState('')
   const [imgKey, setImgKey] = useState('')
   const [delLoading, setDelLoading] = useState(false)
+  const [caption, setCaption] = useState('')
+  // const [loading, setLoading] = useState(false)
   const { toast } = useToast()
 
   const handleDelete = async () => {
     setDelLoading(!delLoading)
-    const res = await imageRemove(imgKey)
-    if (res.success) {
-      setDelLoading(false)
-      setImgKey('')
-      setImgUrl('')
+    if (imgKey) {
+      const res = await imageRemove(imgKey)
+      if (res.success) {
+        setDelLoading(false)
+        setImgKey('')
+        setImgUrl('')
+      }
     }
   }
+
+  const handleCreatePost = () => {
+    if (!imgUrl) {
+      toast({
+        title: 'Please upload image',
+        description: 'Image is required',
+        variant: 'destructive'
+      })
+      return
+    }
+  }
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
           variant="create"
-          className="w-full flex items-center justify-start space-x-4"
+          className="w-full flex items-center justify-center md:justify-start space-x-4 px-7 md:px-4 py-6"
         >
           <span className="text-2xl">
             <MdAddBox />
@@ -51,13 +67,13 @@ export function PostCreate() {
           </span>
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="sm:max-w-[350px]">
+      <AlertDialogContent className="w-[340px]">
         <AlertDialogHeader>
           <AlertDialogTitle>Create Post</AlertDialogTitle>
         </AlertDialogHeader>
         <div className="w-full flex flex-col items-center justify-center">
           {imgUrl ? (
-            <div className="w-full max-h-80 overflow-hidden relative">
+            <div className="w-full max-h-[360px] overflow-hidden relative">
               <Image
                 src={imgUrl}
                 alt="imgUrl-upload"
@@ -104,6 +120,8 @@ export function PostCreate() {
               name="caption"
               id="caption"
               placeholder="Add a caption..."
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
               cols={30}
               rows={2}
               className="peer block w-full h-full resize-none p-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
@@ -111,8 +129,8 @@ export function PostCreate() {
           </div>
         </div>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogCancel onClick={handleDelete}>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleCreatePost}>Post</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

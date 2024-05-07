@@ -28,8 +28,8 @@ const SideNav = () => {
       <div className="flex md:flex-col w-full h-full justify-between">
         <div className="flex md:flex-col w-full justify-between">
           <Link
-            className={`flex w-full items-center justify-center md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4 ${
-              pathname === '/' && ' bg-gray-200 font-medium'
+            className={`flex w-full h-full items-center justify-center md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4 ${
+              pathname === '/' && ' bg-gray-100 font-medium'
             }`}
             href="/"
           >
@@ -38,24 +38,24 @@ const SideNav = () => {
             </div>
             <div className="hidden md:block">Home</div>
           </Link>
-          <div className="flex w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
+          <div className="flex w-full h-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
             <div className="text-2xl">
               <IoSearch />
             </div>
             <div className="hidden md:block">Search</div>
           </div>
-          <div className="flex w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg  py-2 mb-2">
+          <div className="w-full h-full  cursor-pointer hover:bg-gray-100 rounded-lg mb-2 ">
             <PostCreate />
           </div>
-          <div className="flex w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
+          <div className="flex w-full h-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
             <div className="text-2xl">
               <IoMdNotifications />
             </div>
             <div className="hidden md:block">Notification</div>
           </div>
           <Link
-            className={`flex w-full items-center justify-center md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4 ${
-              pathname === '/profile' && ' bg-gray-200 font-medium'
+            className={`flex w-full h-full items-center justify-center md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4 ${
+              pathname === '/profile' && ' bg-gray-100 font-medium'
             }`}
             href="/profile"
           >
@@ -66,7 +66,7 @@ const SideNav = () => {
           </Link>
         </div>
         <div
-          className="hidden md:flex w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg px-4 py-2 mb-1 font-medium text-base space-x-3"
+          className="hidden md:flex w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-100 rounded-lg px-4 py-2 mb-1 font-medium text-base space-x-3"
           onClick={() => setShowSetting(!showSetting)}
         >
           <div className="text-2xl">
