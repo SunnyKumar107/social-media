@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Setting from './settings'
 import { useState } from 'react'
+import { PostCreate } from './create-post'
 
 const SideNav = () => {
   const pathname = usePathname()
@@ -27,7 +28,7 @@ const SideNav = () => {
       <div className="flex md:flex-col w-full h-full justify-between">
         <div className="flex md:flex-col w-full justify-between">
           <Link
-            className={`flex h-full w-full items-center justify-center md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4 ${
+            className={`flex w-full items-center justify-center md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4 ${
               pathname === '/' && ' bg-gray-200 font-medium'
             }`}
             href="/"
@@ -37,26 +38,23 @@ const SideNav = () => {
             </div>
             <div className="hidden md:block">Home</div>
           </Link>
-          <div className="flex h-full w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
+          <div className="flex w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
             <div className="text-2xl">
               <IoSearch />
             </div>
             <div className="hidden md:block">Search</div>
           </div>
-          <div className="flex h-full w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
-            <div className="text-2xl">
-              <MdAddBox />
-            </div>
-            <div className="hidden md:block">Create</div>
+          <div className="flex w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg  py-2 mb-2">
+            <PostCreate />
           </div>
-          <div className="flex h-full w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
+          <div className="flex w-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
             <div className="text-2xl">
               <IoMdNotifications />
             </div>
             <div className="hidden md:block">Notification</div>
           </div>
           <Link
-            className={`flex h-full w-full items-center justify-center md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4 ${
+            className={`flex w-full items-center justify-center md:justify-start hover:bg-gray-200 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4 ${
               pathname === '/profile' && ' bg-gray-200 font-medium'
             }`}
             href="/profile"

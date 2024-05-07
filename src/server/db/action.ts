@@ -63,7 +63,7 @@ export const createUser = async (userData: any) => {
   }
 }
 
-export const deleteUser = async (email: any) => {
+export const deleteUser = async (email: string) => {
   try {
     await db.delete(users).where(eq(users.email, email))
     return {

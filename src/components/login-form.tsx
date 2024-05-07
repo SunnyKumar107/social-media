@@ -3,7 +3,7 @@
 import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { TailSpin } from 'react-loader-spinner'
 import { useToast } from './ui/use-toast'
@@ -12,9 +12,9 @@ export default function LoginForm() {
   const session = useSession()
   const router = useRouter()
   const { toast } = useToast()
-  const [showPassword, setShowPassword] = useState(false)
-  const [errMsg, setErrMsg] = useState('')
-  const [loader, setLoader] = useState(false)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [errMsg, setErrMsg] = useState<string>('')
+  const [loader, setLoader] = useState<boolean>(false)
 
   const displayErr = (msg: string) => {
     setErrMsg(msg)
@@ -35,11 +35,12 @@ export default function LoginForm() {
     return pattern
   }
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoader(true)
-    const email = e.target.email.value
-    const password = e.target.password.value
+    const form = e.target as HTMLFormElement
+    const email = form.email.value
+    const password = form.password.value
 
     if (!isValidEmail(email)) {
       displayErr('invalid email')

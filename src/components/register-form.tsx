@@ -6,7 +6,7 @@ import { UploadButton } from '@/utils/uploadthing'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { RxCross2 } from 'react-icons/rx'
 import { TailSpin } from 'react-loader-spinner'
@@ -46,14 +46,16 @@ const RegisterForm = () => {
     return pattern
   }
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoader(true)
-    const email = e.target.email.value
-    const username = e.target.username.value
-    const name = e.target.name.value
-    const password = e.target.password.value
-    const bio = e.target.bio.value
+
+    const form = e.target as HTMLFormElement
+    const email = form.email.value
+    const username = form.username.value
+    const name = form.fullname.value
+    const password = form.password.value
+    const bio = form.bio.value
 
     if (!isValidEmail(email)) {
       displayErr('invalid email')
@@ -131,12 +133,12 @@ const RegisterForm = () => {
               required
             />
           </label>
-          <label className="border-b-2" htmlFor="name">
+          <label className="border-b-2" htmlFor="fullname">
             <input
               className="peer block w-full px-4 py-2 text-base text-gray-700 outline-none placeholder:text-gray-500"
-              id="name"
+              id="fullname"
               type="text"
-              name="name"
+              name="fullname"
               placeholder="Full Name"
               required
             />
