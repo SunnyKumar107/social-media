@@ -4,6 +4,7 @@ import { eq } from 'drizzle-orm'
 import { db } from '.'
 import { posts, users, comments, likes } from './schema'
 import bcrypt from 'bcrypt'
+import { revalidateTag } from 'next/cache'
 
 export const createUser = async (userData: any) => {
   try {
@@ -95,6 +96,8 @@ export const createPost = async ({
       authorId: authorId,
       img: img
     })
+    revalidateTag('/')
+    revalidateTag('/profile')
     return {
       success: true,
       message: 'post created',

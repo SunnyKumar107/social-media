@@ -18,11 +18,13 @@ const Post = ({ post }: any) => {
     const hour = minute * 60
     const day = hour * 24
     if (totalTime < minute) {
-      return `${Math.floor(totalTime / 1000)}sec ago`
+      return `${Math.floor(totalTime / 1000)} sec ago`
     } else if (totalTime < minute * 2) {
-      return `${Math.floor(totalTime / minute)} minutes ago`
+      return `${Math.floor(totalTime / minute)} minute ago`
     } else if (totalTime < hour) {
       return `${Math.floor(totalTime / minute)} minutes ago`
+    } else if (totalTime < hour * 2) {
+      return `${Math.floor(totalTime / minute)} hour ago`
     } else if (totalTime < day) {
       return `${Math.floor(totalTime / hour)} hours ago`
     } else {
