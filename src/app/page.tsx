@@ -19,7 +19,7 @@ const displayPost = async () => {
   return (
     <div className="flex flex-col flex-wrap mt-14 mb-12 md:mb-0 md:mt-0 sm:px-10 md:px-16 xl:px-28 gap-2">
       {postsData.map((post) => (
-          <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} />
       ))}
     </div>
   )

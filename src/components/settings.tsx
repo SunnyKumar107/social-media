@@ -24,7 +24,7 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
     })
   }
 
-  const handleDeleteAccount = async () => {
+  const handleDeleteAccount = async (): Promise<void> => {
     setDelLoading(true)
     const res = await deleteUser(session?.user?.email as string)
     if (res.success) {

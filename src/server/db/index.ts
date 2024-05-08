@@ -23,7 +23,17 @@ export const getUserTable = async () => {
 }
 
 export const getUser = async (email: string) => {
-  const result = await db
+  const result: {
+    id: string
+    name: string
+    email: string
+    username: string
+    img: string | null
+    bio: string | null
+    passwordHash: string
+    createdAt: Date
+    updatedAt: Date
+  }[] = await db
     .select()
     .from(schema.users)
     .where(eq(schema.users.email, email))

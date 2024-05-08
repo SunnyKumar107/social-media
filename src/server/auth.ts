@@ -29,5 +29,32 @@ export const authOptions: NextAuthOptions = {
         }
       }
     })
-  ]
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      //pass in user id, username and img to token
+      if (user) {
+        return {
+          ...token,
+          id: user.id,
+          username: user.username,
+          img: user.img
+        }
+      }
+      return token
+    },
+    async session({ session, token }) {
+      //pass in user id, username and img to session
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          username: token.username,
+          img: token.img
+        }
+      }
+    }
+  },
+  secret: process.env.NEXTAUTH_SECRET
 }
