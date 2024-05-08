@@ -73,7 +73,7 @@ const Post = ({ post }: any) => {
           className="w-full"
         />
       </div>
-      <div className="flex items-center justify-between text-[24px] text-gray-700 px-2 md:px-1 my-2">
+      <div className="flex items-center justify-between text-[24px] font-normal px-2 md:px-1 my-2">
         <div className="flex space-x-5">
           <div>
             <FaRegHeart />
