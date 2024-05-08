@@ -3,7 +3,7 @@
 import { eq } from 'drizzle-orm'
 import { db } from '.'
 import { posts, users, comments, likes } from './schema'
-const bcrypt = require('bcrypt')
+import bcrypt from 'bcrypt'
 
 export const createUser = async (userData: any) => {
   try {
@@ -41,7 +41,7 @@ export const createUser = async (userData: any) => {
     }
     const passwordHash = await bcrypt.hash(password, 10)
 
-    const newUser = await db.insert(users).values({
+    await db.insert(users).values({
       username: username,
       email: email,
       name: name,
@@ -57,7 +57,7 @@ export const createUser = async (userData: any) => {
   } catch (error) {
     return {
       success: false,
-      message: 'something went wrong',
+      message: 'server error',
       statuscode: 500
     }
   }
@@ -74,23 +74,39 @@ export const deleteUser = async (email: string) => {
   } catch (error) {
     return {
       success: false,
-      message: 'something went wrong',
+      message: 'server error',
       statuscode: 500
     }
   }
 }
 
-export const createPost = async (
-  caption: string,
-  authorId: string,
+export const createPost = async ({
+  caption,
+  authorId,
+  img
+}: {
+  caption?: string
+  authorId: string
   img: string
-) => {
-  await db.insert(posts).values({
-    caption: caption,
-    authorId: authorId,
-    img: img
-  })
-  console.log('post created')
+}) => {
+  try {
+    await db.insert(posts).values({
+      caption: caption,
+      authorId: authorId,
+      img: img
+    })
+    return {
+      success: true,
+      message: 'post created',
+      statuscode: 200
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: 'server error',
+      statuscode: 500
+    }
+  }
 }
 
 export const addComment = async (

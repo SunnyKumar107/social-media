@@ -20,6 +20,8 @@ import { RxCross2 } from 'react-icons/rx'
 import { TailSpin } from 'react-loader-spinner'
 import { imageRemove } from '@/lib/imageRemove'
 import { MdAddBox } from 'react-icons/md'
+import { createPost } from '@/server/db/action'
+import { useSession } from 'next-auth/react'
 
 export function PostCreate() {
   const [imgUrl, setImgUrl] = useState('')
@@ -28,6 +30,7 @@ export function PostCreate() {
   const [caption, setCaption] = useState('')
   // const [loading, setLoading] = useState(false)
   const { toast } = useToast()
+  const { data: session } = useSession()
 
   const handleDelete = async () => {
     setDelLoading(!delLoading)
@@ -41,7 +44,7 @@ export function PostCreate() {
     }
   }
 
-  const handleCreatePost = () => {
+  const handleCreatePost = async () => {
     if (!imgUrl) {
       toast({
         title: 'Please upload image',
@@ -49,6 +52,24 @@ export function PostCreate() {
         variant: 'destructive'
       })
       return
+    }
+
+    const res = await createPost({
+      caption: caption,
+      authorId: session?.user?.id as string,
+      img: imgUrl
+    })
+
+    if (res.success) {
+      toast({
+        title: 'Post created successfully'
+      })
+    } else {
+      toast({
+        title: 'Something went wrong',
+        description: 'Please try again',
+        variant: 'destructive'
+      })
     }
   }
 
@@ -130,7 +151,9 @@ export function PostCreate() {
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={handleDelete}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleCreatePost}>Post</AlertDialogAction>
+          <AlertDialogAction onClick={handleCreatePost} className="px-6">
+            Post
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

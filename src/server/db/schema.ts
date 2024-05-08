@@ -27,7 +27,7 @@ export const usersRelations = relations(users, ({ many }) => ({
 
 export const posts = pgTable('posts', {
   id: uuid('id').primaryKey().defaultRandom(),
-  caption: text('caption').notNull(),
+  caption: text('caption'),
   authorId: uuid('author_id')
     .notNull()
     .references(() => users.id),
