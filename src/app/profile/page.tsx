@@ -5,22 +5,13 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 const page = async () => {
-  const session: {
-    user: {
-      name: string
-      email: string
-      image: undefined
-      id: string
-      username: string
-      img: string
-    }
-  } | null = await getServerSession(authOptions)
+  const session = await getServerSession()
   if (!session) {
     redirect('/login')
   }
 
   const userData = await getUserTable()
-  const user = userData.find((user) => user.id === session?.user?.id)
+  const user = userData.find((user) => user.email === session.user.email)
 
   return <Profile user={user} />
 }
