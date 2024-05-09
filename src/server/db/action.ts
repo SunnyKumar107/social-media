@@ -112,15 +112,33 @@ export const createPost = async ({
   }
 }
 
-export const addComment = async (
-  postId: string,
-  authorId: string,
+export const addComment = async ({
+  postId,
+  authorId,
+  comment
+}: {
+  postId: string
+  authorId: string
   comment: string
-) => {
-  await db.insert(comments).values({
-    postId: postId,
-    authorId: authorId,
-    comment: comment
-  })
-  console.log('Comment added')
+}) => {
+  try {
+    await db.insert(comments).values({
+      postId: postId,
+      authorId: authorId,
+      comment: comment
+    })
+    revalidateTag('/')
+
+    return {
+      success: true,
+      message: 'comment added',
+      statuscode: 200
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: 'server error',
+      statuscode: 500
+    }
+  }
 }
