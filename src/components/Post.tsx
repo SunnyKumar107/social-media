@@ -75,7 +75,6 @@ const Post = ({ post }: any) => {
           width={500}
           height={500}
           className="w-full"
-          priority={true}
         />
       </div>
       <div className="flex items-center justify-between text-[24px] font-normal px-2 md:px-1 my-2">

@@ -1,17 +1,12 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
 import Logo from './Logo'
 import { MdOutlineSettings } from 'react-icons/md'
 import { useState } from 'react'
 import Setting from './settings'
 
 const Header = () => {
-  const { data: session } = useSession()
   const [showSetting, setShowSetting] = useState(false)
-  if (!session) {
-    return null
-  }
 
   return (
     <div className="flex items-center justify-between md:hidden w-screen h-[60px] fixed top-0 bg-white z-10 p-2">

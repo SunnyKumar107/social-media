@@ -7,7 +7,6 @@ import { IoHomeSharp, IoSearch } from 'react-icons/io5'
 import { MdAddBox, MdOutlineSettings } from 'react-icons/md'
 import Logo from './Logo'
 import { usePathname } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import Setting from './settings'
 import { useState } from 'react'
 import { PostCreate } from './create-post'
@@ -15,10 +14,6 @@ import { PostCreate } from './create-post'
 const SideNav = () => {
   const pathname = usePathname()
   const [showSetting, setShowSetting] = useState(false)
-  const { data: session } = useSession()
-  if (!session) {
-    return null
-  }
 
   return (
     <section className="flex md:flex-col w-screen md:w-60 bg-white md:border-r-[1px] border-t-[1px] md:border-t-0 border-gray-200 h-12 md:h-screen fixed md:p-3 bottom-0">

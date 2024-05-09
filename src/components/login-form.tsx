@@ -74,7 +74,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-[500px] md:w-[500px] h-[450px] bg-white rounded-sm shadow p-2">
+    <div className="flex flex-col items-center justify-center w-full max-w-[500px] md:w-[500px] h-[450px] bg-white rounded-sm shadow px-8 py-4">
       <div className="w-full text-center mb-2">
         <h1 className="text-2xl font-mono mb-0">LOGIN</h1>
         <p className="text-sm text-gray-500 font-medium">
@@ -125,7 +125,7 @@ export default function LoginForm() {
         </div>
         <button
           className={`mt-8 w-full rounded-md px-3 py-2 bg-slate-800 hover:bg-slate-700 font-semibold text-base text-center text-white ${
-            loader && 'cursor-not-allowed bg-slate-700'
+            loader && 'bg-slate-700'
           }`}
           disabled={loader}
         >

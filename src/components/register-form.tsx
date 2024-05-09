@@ -98,7 +98,7 @@ const RegisterForm = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-[500px] md:w-[500px] min-h-[450px] bg-white rounded-sm shadow px-2 py-4">
+    <div className="flex flex-col items-center justify-center w-full max-w-[500px] md:w-[500px] min-h-[450px] bg-white rounded-sm shadow px-8 py-4">
       <div className="w-full text-center mb-2">
         <h1 className="text-2xl font-mono mb-0">REGISTER</h1>
         <p className="text-sm text-gray-500 font-medium">
@@ -167,7 +167,7 @@ const RegisterForm = () => {
             </div>
           </label>
         </div>
-        <div className="flex justify-between w-full my-4">
+        <div className="flex flex-col md:flex-row justify-between w-full my-4">
           <div className="flex items-center justify-center">
             {imgUrl ? (
               <div className="flex flex-col items-center justify-center w-32 relative">
@@ -198,15 +198,15 @@ const RegisterForm = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex items-center justify-center w-full h-full border border-dotted border-slate-300 rounded p-1">
+              <div className="flex items-center justify-center w-full h-28 border border-dotted border-slate-300 rounded px-4">
                 <UploadButton
                   endpoint="imageUploader"
-                  onClientUploadComplete={(res: any) => {
+                  onClientUploadComplete={(res) => {
                     setImgUrl(res[0].url)
                     setImgKey(res[0].key)
                   }}
                   onUploadError={(error: Error) => {
-                    displayErr(error.message)
+                    displayErr('Image size is too big. Max size is 4MB')
                   }}
                 />
               </div>
@@ -224,8 +224,8 @@ const RegisterForm = () => {
           </div>
         </div>
         <button
-          className={`w-full rounded-md px-3 py-2 bg-slate-800 hover:bg-slate-700 font-semibold text-base text-center text-white ${
-            loader && 'cursor-not-allowed bg-slate-700'
+          className={`mt-4 w-full rounded-md px-3 py-2 bg-slate-800 hover:bg-slate-700 font-semibold text-base text-center text-white ${
+            loader && 'bg-slate-700'
           }`}
           disabled={loader}
         >

@@ -132,7 +132,8 @@ export function PostCreate() {
                 onUploadError={(error: Error) => {
                   toast({
                     variant: 'destructive',
-                    title: `${error.message}`
+                    title: 'Image upload failed!',
+                    description: 'Image size is too big. Max size is 4MB'
                   })
                 }}
               />
