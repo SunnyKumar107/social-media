@@ -8,8 +8,8 @@ const displayPost = async () => {
   const postsData = await getPostTable()
   // const comments = await getCommentsTable()
   // await addComment(
-  //   '5d82b887-f56e-4d9c-9f35-2c0d6c65b027',
-  //   'a7a0cdfa-acbf-457e-9c23-d901201861d2',
+  //   '4d257cb0-7483-4be0-8853-197336650195',
+  //   'b21a8dc2-c5f2-48c1-9216-702c11e89779',
   //   'Elephants are the largest living land animals.'
   // )
   if (!postsData) {

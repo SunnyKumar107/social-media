@@ -27,7 +27,7 @@ const Comment = ({ cmnt }: any) => {
             height={40}
           />
         </Link>
-        <div className="flex flex-col justify-start">
+        <div className="max-w-[300px] md:max-w-[350px] flex flex-col justify-start">
           <Link
             href={`/${cmnt.author.username}`}
             className="text-xs font-medium mr-1"

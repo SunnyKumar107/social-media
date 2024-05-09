@@ -34,7 +34,11 @@ const Post = ({ post }: any) => {
   }
 
   return (
-    <div className="flex flex-col w-screen  sm:w-[480px] border-b-[1px] border-gray-200 pb-1">
+    <div
+      className={`flex flex-col w-screen  sm:w-[480px] pb-1 border-b-[1px] sm:border-b-0 border-gray-200  ${
+        pathname === '/' && 'border-b-[1px]'
+      }`}
+    >
       <div className="flex items-center justify-between w-full px-2 md:px-1 py-2">
         <div className="flex items-center">
           <Link
@@ -77,7 +81,7 @@ const Post = ({ post }: any) => {
           className="w-full"
         />
       </div>
-      <div className="flex items-center justify-between text-[24px] font-normal px-2 md:px-1 my-2">
+      <div className="flex items-center justify-between text-[24px] font-normal px-2 sm:px-1 my-2">
         <div className="flex space-x-5">
           <div>
             <FaRegHeart />
@@ -90,11 +94,11 @@ const Post = ({ post }: any) => {
           <IoShareSocial />
         </div>
       </div>
-      <div className="text-sm font-medium px-2 md:px-1">
+      <div className="text-sm font-medium px-2 sm:px-1">
         {post.likes.length} likes
       </div>
       {post.caption && (
-        <div className="flex gap-2 text-sm  mt-2 px-2 md:px-1">
+        <div className="flex gap-2 text-sm  mt-2 px-2 sm:px-1">
           <h3 className="flex items-center font-semibold">
             {post.author.username}
           </h3>{' '}
