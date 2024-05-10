@@ -1,16 +1,21 @@
 'use client'
 
+import { addLike, deleteLike } from '@/server/db/action'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { BiCommentDetail } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs'
-import { FaRegHeart } from 'react-icons/fa'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { IoShareSocial } from 'react-icons/io5'
 import { LuDot } from 'react-icons/lu'
+import { useToast } from './ui/use-toast'
 
 const Post = ({ post }: any) => {
   const pathname = usePathname()
+  const { data: session } = useSession()
+  const { toast } = useToast()
 
   const timeExtractor = () => {
     const totalTime = Number(new Date()) - Number(new Date(post.createdAt))
@@ -31,6 +36,26 @@ const Post = ({ post }: any) => {
       if (totalTime < 2 * day) return '1 day ago'
       return `${Math.floor(totalTime / day)} days ago`
     }
+  }
+
+  const isUserLike = post.likes.find(
+    (u: any) => u.authorId === session?.user.id
+  )
+
+  const handleUpdateLike = async () => {
+    if (isUserLike) {
+      const res = await deleteLike(session?.user.id as string)
+      if (!res?.success) {
+        toast({
+          title: 'Something went wrong',
+          description: 'Please try again',
+          variant: 'destructive'
+        })
+      }
+      return
+    }
+
+    await addLike({ postId: post.id, authorId: session?.user.id as string })
   }
 
   return (
@@ -81,21 +106,31 @@ const Post = ({ post }: any) => {
           className="w-full"
         />
       </div>
-      <div className="flex items-center justify-between text-[24px] font-normal px-2 sm:px-1 my-2">
+      <div className="flex items-center justify-between px-2 sm:px-1 my-2">
         <div className="flex space-x-5">
-          <div>
-            <FaRegHeart />
-          </div>
-          <Link href={`/post/${post.id}`}>
+          <button onClick={handleUpdateLike} className="text-2xl font-normal">
+            {isUserLike ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
+          </button>
+          <Link href={`/post/${post.id}`} className="text-2xl font-normal">
             <BiCommentDetail />
           </Link>
         </div>
-        <div>
+        <div className="text-2xl font-normal">
           <IoShareSocial />
         </div>
       </div>
       <div className="text-sm font-medium px-2 sm:px-1">
-        {post.likes.length} likes
+        {post.likes.length > 2 ? (
+          <div>
+            {isUserLike && (
+              <span>
+                <b>You</b> and <b>{post.likes.length - 1}</b> others
+              </span>
+            )}
+          </div>
+        ) : (
+          <div>{post.likes.length} likes</div>
+        )}
       </div>
       {post.caption && (
         <div className="flex gap-2 text-sm  mt-2 px-2 sm:px-1">

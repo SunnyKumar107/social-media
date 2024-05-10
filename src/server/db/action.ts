@@ -142,3 +142,48 @@ export const addComment = async ({
     }
   }
 }
+
+export const addLike = async ({
+  postId,
+  authorId
+}: {
+  postId: string
+  authorId: string
+}) => {
+  try {
+    await db.insert(likes).values({
+      postId: postId,
+      authorId: authorId
+    })
+    revalidateTag('/')
+    return {
+      success: true,
+      message: 'like added',
+      statuscode: 200
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: 'server error',
+      statuscode: 500
+    }
+  }
+}
+
+export const deleteLike = async (authorId: string) => {
+  try {
+    await db.delete(likes).where(eq(likes.authorId, authorId))
+    revalidateTag('/')
+    return {
+      success: true,
+      message: 'like deleted',
+      statuscode: 200
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: 'server error',
+      statuscode: 500
+    }
+  }
+}
