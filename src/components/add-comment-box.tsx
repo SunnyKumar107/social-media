@@ -57,8 +57,8 @@ const CommentBox = ({ postId }: { postId: string }) => {
           <Image
             className="min-h-7 object-cover"
             src={
-              session?.user.image
-                ? session?.user.image
+              session?.user.img
+                ? session?.user.img
                 : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
             }
             alt={session?.user.name as string}

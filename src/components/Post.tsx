@@ -86,9 +86,9 @@ const Post = ({ post }: any) => {
           <div>
             <FaRegHeart />
           </div>
-          <div>
+          <Link href={`/post/${post.id}`}>
             <BiCommentDetail />
-          </div>
+          </Link>
         </div>
         <div>
           <IoShareSocial />
