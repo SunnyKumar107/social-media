@@ -1,4 +1,4 @@
-import Post from '@/components/Post'
+import Post from '@/components/post'
 import CommentBox from '@/components/add-comment-box'
 import Comment from '@/components/comment'
 import { getCommentsTable, getPostTable } from '@/server/db'

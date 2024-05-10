@@ -122,10 +122,15 @@ const Post = ({ post }: any) => {
       <div className="text-sm font-medium px-2 sm:px-1">
         {post.likes.length > 2 ? (
           <div>
-            {isUserLike && (
-              <span>
-                <b>You</b> and <b>{post.likes.length - 1}</b> others
+            {isUserLike ? (
+              <span className="font-normal">
+                Liked by <b className="text-black font-semibold">You</b> and{' '}
+                <b className="text-black font-semibold">
+                  {post.likes.length - 1} others
+                </b>
               </span>
+            ) : (
+              <span className="">{post.likes.length} likes</span>
             )}
           </div>
         ) : (

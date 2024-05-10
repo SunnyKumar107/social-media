@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { FaAngleLeft, FaAngleRight, FaUser } from 'react-icons/fa'
 import { IoMdNotifications } from 'react-icons/io'
 import { IoHomeSharp, IoSearch } from 'react-icons/io5'
-import { MdAddBox, MdOutlineSettings } from 'react-icons/md'
-import Logo from './Logo'
+import { MdOutlineSettings } from 'react-icons/md'
+import Logo from './logo'
 import { usePathname } from 'next/navigation'
 import Setting from './settings'
 import { useState } from 'react'
@@ -17,7 +17,7 @@ const SideNav = () => {
 
   return (
     <section className="flex md:flex-col w-screen md:w-60 bg-white md:border-r-[1px] border-t-[1px] md:border-t-0 border-gray-200 h-12 md:h-screen fixed md:p-3 bottom-0 z-10">
-      <div className="hidden md:block px-2 py-4 mb-4">
+      <div className="hidden md:block px-2 mb-8 mt-6">
         <Logo />
       </div>
       <div className="flex md:flex-col w-full h-full justify-between">

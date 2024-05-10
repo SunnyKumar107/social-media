@@ -1,6 +1,6 @@
 'use client'
 
-import Logo from './Logo'
+import Logo from './logo'
 import { MdOutlineSettings } from 'react-icons/md'
 import { useState } from 'react'
 import Setting from './settings'

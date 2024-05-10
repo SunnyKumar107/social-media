@@ -1,6 +1,6 @@
 const Logo = () => {
   return (
-    <div className="">
+    <div>
       <h1 className="text-2xl font-bold font-sans">Instagram</h1>
     </div>
   )
