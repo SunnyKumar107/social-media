@@ -9,7 +9,7 @@ const Comment = ({ cmnt }: any) => {
     return null
   }
   return (
-    <div className="flex justify-between w-full px-2 md:px-1 py-2">
+    <div className="flex justify-between w-full px-2 md:px-1 py-3">
       <div className="flex items-start space-x-3">
         <Link
           href={`/${cmnt.author.username}`}
