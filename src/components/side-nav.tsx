@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation'
 import Setting from './settings'
 import { useState } from 'react'
 import { PostCreate } from './create-post'
+import { SearchBox } from './search-box'
 
 const SideNav = () => {
   const pathname = usePathname()
@@ -33,13 +34,10 @@ const SideNav = () => {
             </div>
             <div className="hidden md:block">Home</div>
           </Link>
-          <div className="flex w-full h-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
-            <div className="text-2xl">
-              <IoSearch />
-            </div>
-            <div className="hidden md:block">Search</div>
+          <div className="w-full h-full cursor-pointer hover:bg-gray-100 rounded-lg mb-2">
+            <SearchBox />
           </div>
-          <div className="w-full h-full  cursor-pointer hover:bg-gray-100 rounded-lg mb-2 ">
+          <div className="w-full h-full cursor-pointer hover:bg-gray-100 rounded-lg mb-2">
             <PostCreate />
           </div>
           <div className="flex w-full h-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">

@@ -1,11 +1,11 @@
 const User = () => {
   return (
-    <div className="flex justify-between">
+    <div className="w-full flex justify-between">
       <div className="flex items-center">
         <div className="w-12 h-12 rounded-full bg-gray-200"></div>
         <div className="flex flex-col items-start justify-center ml-2 text-sm">
           <h2 className="font-bold">good_luck_0701</h2>
-          <span className="font-extralight text-xs">Follows you</span>
+          <span className="font-extralight text-xs">Sunny Kumar</span>
         </div>
       </div>
       <div>

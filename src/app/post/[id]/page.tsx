@@ -21,7 +21,7 @@ const page = async ({ params }: any) => {
   return (
     <div className="flex flex-col items-center lg:items-start lg:flex-row lg:justify-center lg:space-x-4 mt-14 mb-12 md:mb-0 md:mt-0 md:ml-60 md:p-4 pt-2">
       <Post post={post} />
-      <div className="w-full md:min-h-[560px] sm:w-[480px] flex flex-col md:relative">
+      <div className="w-full md:min-h-[560px] sm:w-[480px] flex flex-col md:relative border-t-[1px] border-gray-200 lg:border-t-0">
         <div className="w-full flex flex-col flex-wrap mb-12">
           <div className="px-2 md:px-1 py-3 hidden md:block">
             <h1 className="text-lg font-medium">Comments</h1>

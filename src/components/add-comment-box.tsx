@@ -76,11 +76,11 @@ const CommentBox = ({ postId }: { postId: string }) => {
             cols={30}
             rows={1}
             ref={textAreaRef}
-            className="peer block w-full h-full resize-none p-2 text-sm text-gray-700  focus:outline-none active:outline-none placeholder:text-gray-500"
+            className="peer block w-full h-full resize-none py-2 px-1 text-sm text-gray-700  focus:outline-none active:outline-none placeholder:text-gray-500"
           />
         </div>
       </div>
-      <div className="flex items-center p-2">
+      <div className="flex items-center py-2">
         <button
           onClick={handleAddComment}
           className="text-2xl"

@@ -61,8 +61,8 @@ const Post = ({ post }: any) => {
 
   return (
     <div
-      className={`flex flex-col w-screen  sm:w-[480px] pb-1 border-b-[1px] sm:border-b-0 border-gray-200  ${
-        pathname === '/' && 'border-b-[1px]'
+      className={`flex flex-col w-screen  sm:w-[480px] pb-1 ${
+        pathname === '/' && 'border-gray-200 border-b-[1px]'
       }`}
     >
       <div className="flex items-center justify-between w-full px-2 md:px-1 py-2">
