@@ -79,7 +79,7 @@ export function PostCreate() {
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          variant="create"
+          variant="normal"
           className="w-full flex items-center justify-center md:justify-start space-x-4 px-7 md:px-4 py-6"
         >
           <span className="text-2xl">

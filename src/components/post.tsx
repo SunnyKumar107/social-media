@@ -11,6 +11,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { IoShareSocial } from 'react-icons/io5'
 import { LuDot } from 'react-icons/lu'
 import { useToast } from './ui/use-toast'
+import { ShareUrl } from './share-url'
 
 const Post = ({ post }: any) => {
   const pathname = usePathname()
@@ -115,8 +116,8 @@ const Post = ({ post }: any) => {
             <BiCommentDetail />
           </Link>
         </div>
-        <div className="text-2xl font-normal">
-          <IoShareSocial />
+        <div>
+          <ShareUrl postId={post.id} />
         </div>
       </div>
       <div className="text-sm font-medium px-2 sm:px-1">

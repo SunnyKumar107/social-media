@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CiCamera } from 'react-icons/ci'
+import { ShareUrl } from './share-url'
 
 const Profile = ({ user }: any) => {
   const { data: session } = useSession()
@@ -59,9 +60,7 @@ const Profile = ({ user }: any) => {
               Follow
             </button>
           )}
-          <button className="bg-gray-200 max-w-72 hover:bg-gray-300 text-sm font-medium rounded-md w-full py-2 space-x-4">
-            Share Profile
-          </button>
+          <ShareUrl btnName="Share" />
         </div>
       </div>
       <div className="">
