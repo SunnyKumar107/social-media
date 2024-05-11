@@ -27,7 +27,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex justify-center min-h-screen md:ml-60 md:py-4">
+    <main className="flex justify-center min-h-screen md:ml-60 md:py-4 pt-2">
       {displayPost()}
       <Suggest />
     </main>
