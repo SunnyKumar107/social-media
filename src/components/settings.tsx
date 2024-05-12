@@ -1,20 +1,18 @@
 'use client'
 
-import { deleteUser } from '@/server/db/action'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
-import { AiOutlineDelete } from 'react-icons/ai'
 import { IoMdPower } from 'react-icons/io'
 import { RxCross2 } from 'react-icons/rx'
 import { TailSpin } from 'react-loader-spinner'
 import { useToast } from './ui/use-toast'
+import { AlertDelete } from './delete-alert'
 
 const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
   const { data: session } = useSession()
   const { toast } = useToast()
   const [logoutLoading, setLogoutLoading] = useState(false)
-  const [delLoading, setDelLoading] = useState(false)
 
   const handleLogout = async () => {
     setLogoutLoading(true)
@@ -22,24 +20,6 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
     toast({
       title: `Goodbye ${session?.user?.name}`
     })
-  }
-
-  const handleDeleteAccount = async (): Promise<void> => {
-    setDelLoading(true)
-    const res = await deleteUser(session?.user?.email as string)
-    if (res.success) {
-      setDelLoading(false)
-      handleLogout()
-      toast({
-        title: 'Account deleted successfully!'
-      })
-    } else {
-      setDelLoading(false)
-      toast({
-        variant: 'destructive',
-        title: 'Something went wrong!'
-      })
-    }
   }
 
   return (
@@ -70,22 +50,7 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
           </span>
           <span className="text-start">Logout</span>
         </button>
-        <button
-          onClick={handleDeleteAccount}
-          disabled={delLoading}
-          className={`cursor-pointer flex items-center justify-start space-x-1  text-red-700 font-normal py-1  ${
-            delLoading && 'cursor-not-allowed'
-          }`}
-        >
-          <span className="py-2 text-sm">
-            {delLoading ? (
-              <TailSpin color="red" height={13} width={13} strokeWidth={3} />
-            ) : (
-              <AiOutlineDelete />
-            )}
-          </span>
-          <span className="text-start">Delete Account</span>
-        </button>
+        <AlertDelete />
       </div>
       <Link href="/profile" className="w-full px-4 py-2 ">
         <h2 className="text-lg font-semibold text-slate-800 font-sans">

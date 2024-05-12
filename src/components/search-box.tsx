@@ -37,7 +37,7 @@ export function SearchBox() {
           <span className="hidden md:block">Search</span>
         </button>
       </DialogTrigger>
-      <DialogContent className="max-w-[360px] sm:max-w-[425px] min-h-[400px]">
+      <DialogContent className="max-w-[360px] sm:max-w-[425px] min-h-[400px] max-h-[500px]">
         <DialogHeader className="mt-6">
           <Input
             id="name"
