@@ -13,6 +13,7 @@ import { IoSearch } from 'react-icons/io5'
 import User from './user'
 import { useEffect, useState } from 'react'
 import { getUserTable } from '@/server/db'
+import { Button } from './ui/button'
 
 export function SearchBox() {
   const [users, setUsers] = useState<any>(null)
@@ -30,12 +31,17 @@ export function SearchBox() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex w-full h-full items-center justify-center md:justify-start px-4 py-3 text-[17px] space-x-4">
+        <Button
+          variant="normal"
+          className="w-full flex items-center justify-center md:justify-start space-x-4 px-7 md:px-4 py-6"
+        >
           <span className="text-2xl">
             <IoSearch />
           </span>
-          <span className="hidden md:block">Search</span>
-        </button>
+          <span className="hidden md:block text-[17px] font-normal">
+            Search
+          </span>
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[360px] sm:max-w-[425px] min-h-[400px] max-h-[500px]">
         <DialogHeader className="mt-6">
