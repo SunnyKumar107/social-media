@@ -34,17 +34,13 @@ const SideNav = () => {
             </div>
             <div className="hidden md:block">Home</div>
           </Link>
-          <div className="w-full h-full cursor-pointer hover:bg-gray-100 rounded-lg mb-2">
-            <SearchBox />
-          </div>
-          <div className="w-full h-full cursor-pointer hover:bg-gray-100 rounded-lg mb-2">
-            <PostCreate />
-          </div>
+          <SearchBox />
+          <PostCreate />
           <div className="flex w-full h-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
-            <div className="text-2xl">
+            <span className="text-2xl">
               <IoMdNotifications />
-            </div>
-            <div className="hidden md:block">Notification</div>
+            </span>
+            <span className="hidden md:block">Notification</span>
           </div>
           <Link
             className={`flex w-full h-full items-center justify-center md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4 ${

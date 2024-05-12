@@ -78,17 +78,12 @@ export function PostCreate() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant="normal"
-          className="w-full flex items-center justify-center md:justify-start space-x-4 px-7 md:px-4 py-6"
-        >
-          <span className="text-2xl">
+        <div className="flex w-full h-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
+            <span className="text-2xl">
             <MdAddBox />
-          </span>
-          <span className="hidden md:block text-[17px] font-normal">
-            Create
-          </span>
-        </Button>
+            </span>
+            <span className="hidden md:block">Create</span>
+          </div>
       </DialogTrigger>
       <DialogContent className="w-[350px]">
         <DialogHeader>

@@ -32,17 +32,12 @@ export function SearchBox() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant="normal"
-          className="w-full flex items-center justify-center md:justify-start space-x-4 px-7 md:px-4 py-6"
-        >
+        <div className="flex w-full h-full items-center justify-center cursor-pointer md:justify-start hover:bg-gray-100 rounded-lg px-4 py-3 mb-2 text-[17px]  space-x-4">
           <span className="text-2xl">
             <IoSearch />
           </span>
-          <span className="hidden md:block text-[17px] font-normal">
-            Search
-          </span>
-        </Button>
+          <span className="hidden md:block">Search</span>
+        </div>
       </DialogTrigger>
       <DialogContent className="max-w-[360px] sm:max-w-[425px] min-h-[400px] max-h-[500px]">
         <DialogHeader className="mt-6">
@@ -51,7 +46,6 @@ export function SearchBox() {
             placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            defaultValue={''}
             className="col-span-3"
           />
         </DialogHeader>
