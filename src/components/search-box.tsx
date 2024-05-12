@@ -17,16 +17,17 @@ import { Button } from './ui/button'
 
 export function SearchBox() {
   const [users, setUsers] = useState<any>(null)
+  const [search, setSearch] = useState('')
 
-  //   useEffect(() => {
-  //     const fetchUsers = async () => {
-  //       const result = await getUserTable()
-  //       console.log('result', result)
-  //       setUsers([...result])
-  //     }
-  //     fetchUsers()
-  //   }, [])
-  //   console.log('users', users)
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     const result = await getUserTable()
+  //     console.log('result', result)
+  //     setUsers([...result])
+  //   }
+  //   fetchUsers()
+  // }, [])
+  // console.log('users', users)
 
   return (
     <Dialog>
@@ -48,6 +49,8 @@ export function SearchBox() {
           <Input
             id="name"
             placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             defaultValue={''}
             className="col-span-3"
           />
