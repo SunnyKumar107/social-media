@@ -9,6 +9,8 @@ import { ShareUrl } from './share-url'
 const Profile = ({ user }: any) => {
   const { data: session } = useSession()
 
+  const reversedPosts = user.posts.reverse()
+
   return (
     <div className="flex flex-col justify-start mt-14 mb-12 md:mb-0 md:mt-0 md:ml-60 md:px-4 lg:px-16 py-4 md:py-8">
       <div className="px-0 xl:px-12 border-b w-full h-fit border-gray-300">
@@ -52,9 +54,12 @@ const Profile = ({ user }: any) => {
 
         <div className="flex items-center justify-between md:justify-start w-full space-x-4 p-2">
           {session?.user?.email === user?.email ? (
-            <button className="bg-gray-200 max-w-72 hover:bg-gray-300 text-sm text-slate-900 font-medium rounded-md w-full py-2  space-x-4">
+            <Link
+              href="/profile/edit"
+              className="bg-gray-200 max-w-72 hover:bg-gray-300 text-sm text-slate-900 text-center font-medium rounded-md w-full py-2  space-x-4"
+            >
               Edit Profile
-            </button>
+            </Link>
           ) : (
             <button className="bg-sky-600 max-w-72 hover:bg-sky-500 text-sm text-white font-medium rounded-md w-full py-2  space-x-4">
               Follow
@@ -66,7 +71,7 @@ const Profile = ({ user }: any) => {
       <div className="">
         {user.posts.length ? (
           <div className="grid grid-cols-3 gap-1 w-full p-1">
-            {user.posts.map((post: any) => (
+            {reversedPosts.map((post: any) => (
               <Link
                 href={`/post/${post.id}`}
                 key={post.id}
