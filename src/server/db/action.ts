@@ -64,6 +64,14 @@ export const createUser = async (userData: any) => {
   }
 }
 
+export const getUserByUsername = async (username: string) => {
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.username, username))
+  return result[0]
+}
+
 export const deleteUser = async (email: string) => {
   try {
     await db.delete(users).where(eq(users.email, email))
@@ -89,26 +97,12 @@ export const updateUser = async ({
   img
 }: {
   id: string
-  name?: string
-  username?: string
-  bio?: string
-  img?: string | null
+  name: string
+  username: string
+  bio: string
+  img: string | null
 }) => {
   try {
-    if (username) {
-      const isEmailExist = await db
-        .select()
-        .from(users)
-        .where(eq(users.username, username))
-      if (isEmailExist.length) {
-        return {
-          success: false,
-          message: 'email already exist',
-          statuscode: 400
-        }
-      }
-    }
-
     await db
       .update(users)
       .set({ name: name, username: username, bio: bio, img: img })

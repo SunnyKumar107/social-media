@@ -15,13 +15,14 @@ import Link from 'next/link'
 import { RxCross2 } from 'react-icons/rx'
 import { TailSpin } from 'react-loader-spinner'
 import { imageRemove } from '@/lib/imageRemove'
-import { updateUser } from '@/server/db/action'
+import { getUserByUsername, updateUser } from '@/server/db/action'
 
 const EditProfile = () => {
   const [imgUrl, setImgUrl] = useState<string | null>(null)
   const [imgKey, setImgKey] = useState('')
   const [fullName, setFullName] = useState('')
-  const [username, serUsername] = useState('')
+  const [username, setUsername] = useState('')
+  const [uniqueUsername, setUniqueUsername] = useState('')
   const [bio, setBio] = useState('')
   const [delLoading, setDelLoading] = useState(false)
   const [msg, setMsg] = useState('')
@@ -36,7 +37,8 @@ const EditProfile = () => {
         setImgUrl(session.user.img)
       }
       setFullName(session.user.name as string)
-      serUsername(session.user.username)
+      setUsername(session.user.username)
+      setUniqueUsername(session.user.username)
       setBio(session.user.bio as string)
     }
   }, [session, router])
@@ -56,30 +58,45 @@ const EditProfile = () => {
     }
   }
 
-  const isUpdate =
+  let isUpdate =
     session?.user.name !== fullName ||
-    session.user.username !== username ||
+    session.user.username !== uniqueUsername ||
     session.user.bio !== bio ||
     session.user.img !== imgUrl
 
+  const isUsernameExist = async (uname: string) => {
+    setUsername(uname.trim())
+    setMsg('')
+    if (uname === session?.user.username) {
+      setUniqueUsername(session?.user.username)
+      return
+    }
+    const user = await getUserByUsername(uname)
+    if (user) {
+      setUniqueUsername(session?.user.username as string)
+      setMsg('username already exist')
+      return
+    } else {
+      setUniqueUsername(uname)
+      setMsg('')
+    }
+  }
+
   const handleSubmit = async () => {
     setLoading(true)
+    if (username.length < 3) {
+      setLoading(false)
+      setMsg('username must be at least 3 characters')
+      return
+    }
     if (isUpdate) {
       const res = await updateUser({
         id: session?.user.id as string,
         name: fullName,
-        username: username,
+        username: uniqueUsername,
         bio: bio,
         img: imgUrl
       })
-      if (res?.statuscode === 400) {
-        setLoading(false)
-        setMsg(res.message)
-        setTimeout(() => {
-          setMsg('')
-        }, 3000)
-        return
-      }
       if (res?.success) {
         setLoading(false)
         toast({
@@ -172,7 +189,7 @@ const EditProfile = () => {
           name="username"
           placeholder="Username"
           value={username}
-          onChange={(e) => serUsername(e.target.value)}
+          onChange={(e) => isUsernameExist(e.target.value)}
           required
         />
         {msg && (
@@ -196,7 +213,7 @@ const EditProfile = () => {
       <div className="">
         <Button
           className="float-right min-w-[100px]"
-          disabled={!isUpdate}
+          disabled={!isUpdate || loading}
           onClick={handleSubmit}
         >
           {loading ? (
