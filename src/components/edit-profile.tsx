@@ -15,6 +15,7 @@ import Link from 'next/link'
 import { RxCross2 } from 'react-icons/rx'
 import { TailSpin } from 'react-loader-spinner'
 import { imageRemove } from '@/lib/imageRemove'
+import { updateUser } from '@/server/db/action'
 
 const EditProfile = () => {
   const [imgUrl, setImgUrl] = useState<string | null>(null)
@@ -23,16 +24,20 @@ const EditProfile = () => {
   const [username, serUsername] = useState('')
   const [bio, setBio] = useState('')
   const [delLoading, setDelLoading] = useState(false)
+  const [msg, setMsg] = useState('')
+  const [loading, setLoading] = useState(false)
   const { data: session } = useSession()
   const { toast } = useToast()
   const router = useRouter()
 
   useEffect(() => {
     if (session) {
-      setImgUrl(session.user.img)
+      if (!imgUrl) {
+        setImgUrl(session.user.img)
+      }
       setFullName(session.user.name as string)
       serUsername(session.user.username)
-      setBio(session.user.bio)
+      setBio(session.user.bio as string)
     }
   }, [session, router])
 
@@ -48,6 +53,40 @@ const EditProfile = () => {
     } else {
       setDelLoading(false)
       setImgUrl(null)
+    }
+  }
+
+  const isUpdate =
+    session?.user.name !== fullName ||
+    session.user.username !== username ||
+    session.user.bio !== bio ||
+    session.user.img !== imgUrl
+
+  const handleSubmit = async () => {
+    setLoading(true)
+    if (isUpdate) {
+      const res = await updateUser({
+        id: session?.user.id as string,
+        name: fullName,
+        username: username,
+        bio: bio,
+        img: imgUrl
+      })
+      if (res?.statuscode === 400) {
+        setLoading(false)
+        setMsg(res.message)
+        setTimeout(() => {
+          setMsg('')
+        }, 3000)
+        return
+      }
+      if (res?.success) {
+        setLoading(false)
+        toast({
+          title: 'Profile Updated Successfully'
+        })
+        router.replace('/profile')
+      }
     }
   }
 
@@ -136,6 +175,11 @@ const EditProfile = () => {
           onChange={(e) => serUsername(e.target.value)}
           required
         />
+        {msg && (
+          <p className="text-red-500 text-sm font-medium px-3 mt-[-12px] mb-2">
+            {msg}
+          </p>
+        )}
         <Label className="mb-4 px-3">Bio</Label>
         <Textarea
           className="mb-4 resize-none"
@@ -150,7 +194,19 @@ const EditProfile = () => {
         />
       </div>
       <div className="">
-        <Button className="float-right">Submit</Button>
+        <Button
+          className="float-right min-w-[100px]"
+          disabled={!isUpdate}
+          onClick={handleSubmit}
+        >
+          {loading ? (
+            <span className="w-full flex justify-center">
+              <TailSpin color="white" strokeWidth={4} height={24} width={18} />
+            </span>
+          ) : (
+            'Submit'
+          )}
+        </Button>
       </div>
     </div>
   )

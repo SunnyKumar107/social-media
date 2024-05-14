@@ -81,6 +81,54 @@ export const deleteUser = async (email: string) => {
   }
 }
 
+export const updateUser = async ({
+  id,
+  name,
+  username,
+  bio,
+  img
+}: {
+  id: string
+  name?: string
+  username?: string
+  bio?: string
+  img?: string | null
+}) => {
+  try {
+    if (username) {
+      const isEmailExist = await db
+        .select()
+        .from(users)
+        .where(eq(users.username, username))
+      if (isEmailExist.length) {
+        return {
+          success: false,
+          message: 'email already exist',
+          statuscode: 400
+        }
+      }
+    }
+
+    await db
+      .update(users)
+      .set({ name: name, username: username, bio: bio, img: img })
+      .where(eq(users.id, id))
+    console.log('updated')
+    revalidateTag('/profile')
+    return {
+      success: true,
+      message: 'user updated',
+      statuscode: 200
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: 'server error',
+      statuscode: 500
+    }
+  }
+}
+
 export const createPost = async ({
   caption,
   authorId,

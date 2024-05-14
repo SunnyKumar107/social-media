@@ -23,7 +23,7 @@ const Setting = ({ setShowSetting }: { setShowSetting: any }) => {
   }
 
   return (
-    <div className="flex flex-col gap-1 min-h-40 min-w-48 bg-white shadow overflow-hidden relative">
+    <div className="flex flex-col gap-1 min-h-40 min-w-48 bg-white shadow overflow-hidden relative z-30">
       <div className="w-full flex items-center justify-between border-b-2 border-gray-200">
         <h1 className="text-lg text-slate-700 font-semibold px-2">Settings</h1>
         <button

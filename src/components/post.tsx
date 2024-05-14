@@ -107,7 +107,7 @@ const Post = ({ post }: any) => {
           className="w-full"
         />
       </div>
-      <div className="flex items-center justify-between px-2 sm:px-1 my-2">
+      <div className="flex items-center justify-between px-2 sm:px-1 mt-2 mb-1">
         <div className="flex space-x-5">
           <button onClick={handleUpdateLike} className="text-2xl font-normal">
             {isUserLike ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
@@ -120,15 +120,13 @@ const Post = ({ post }: any) => {
           <ShareUrl postId={post.id} />
         </div>
       </div>
-      <div className="text-sm font-medium px-2 sm:px-1">
-        {post.likes.length > 2 ? (
+      <div className="text-sm font-medium mb-1 px-2 sm:px-1">
+        {post.likes.length > 5 ? (
           <div>
             {isUserLike ? (
               <span className="font-normal">
-                Liked by <b className="text-black font-semibold">You</b> and{' '}
-                <b className="text-black font-semibold">
-                  {post.likes.length - 1} others
-                </b>
+                Liked by <b className="font-semibold">You</b> and{' '}
+                <b className="font-semibold">{post.likes.length - 1} others</b>
               </span>
             ) : (
               <span className="">{post.likes.length} likes</span>
@@ -139,7 +137,7 @@ const Post = ({ post }: any) => {
         )}
       </div>
       {post.caption && (
-        <div className="flex gap-2 text-sm  mt-2 px-2 sm:px-1">
+        <div className="flex gap-2 text-sm px-2 sm:px-1">
           <h3 className="flex items-center font-semibold">
             {post.author.username}
           </h3>{' '}
