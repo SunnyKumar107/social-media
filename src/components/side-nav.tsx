@@ -16,6 +16,8 @@ const SideNav = () => {
   const pathname = usePathname()
   const [showSetting, setShowSetting] = useState(false)
 
+  if (pathname === '/login' || pathname === '/register') return null
+
   return (
     <section className="flex md:flex-col w-screen md:w-60 bg-white md:border-r-[1px] border-t-[1px] md:border-t-0 border-gray-200 h-12 md:h-screen fixed md:p-3 bottom-0 z-10">
       <div className="hidden md:block px-2 mb-8 mt-6">

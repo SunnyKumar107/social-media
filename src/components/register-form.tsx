@@ -52,7 +52,7 @@ const RegisterForm = () => {
 
     const form = e.target as HTMLFormElement
     const email = form.email.value
-    const username = form.username.value
+    const username = form.username.value.trim()
     const name = form.fullname.value
     const password = form.password.value
     const bio = form.bio.value

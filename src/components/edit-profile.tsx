@@ -71,6 +71,13 @@ const EditProfile = () => {
       setUniqueUsername(session?.user.username)
       return
     }
+
+    if (uname.length < 3) {
+      setUniqueUsername(session?.user.username as string)
+      setMsg('username must be at least 3 characters')
+      return
+    }
+
     const user = await getUserByUsername(uname)
     if (user) {
       setUniqueUsername(session?.user.username as string)
@@ -84,11 +91,6 @@ const EditProfile = () => {
 
   const handleSubmit = async () => {
     setLoading(true)
-    if (username.length < 3) {
-      setLoading(false)
-      setMsg('username must be at least 3 characters')
-      return
-    }
     if (isUpdate) {
       const res = await updateUser({
         id: session?.user.id as string,

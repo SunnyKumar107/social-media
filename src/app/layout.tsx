@@ -30,12 +30,8 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <SessionProvider session={session}>
-          {session && (
-            <>
-              <Header />
-              <SideNav />
-            </>
-          )}
+          <Header />
+          <SideNav />
           <div>{children}</div>
           <Toaster />
         </SessionProvider>
