@@ -7,7 +7,7 @@ import { Input } from './ui/input'
 import { Label } from './ui/label'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
-import { FaArrowLeft } from 'react-icons/fa'
+import { FaArrowLeft } from 'react-icons/fa6'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -112,8 +112,8 @@ const EditProfile = () => {
   return (
     <div className="w-full h-full md:max-w-[600px] bg-white relative z-20 px-4">
       <div className="w-full flex items-center py-6">
-        <h1 className="flex items-center text-xl font-medium">
-          <Link href="/profile" className="md:hidden mr-4">
+        <h1 className="flex items-center text-lg font-medium">
+          <Link href="/profile" className="md:hidden mr-2">
             <FaArrowLeft />
           </Link>{' '}
           Edit Profile

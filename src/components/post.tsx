@@ -8,21 +8,34 @@ import { usePathname } from 'next/navigation'
 import { BiCommentDetail } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
-import { IoShareSocial } from 'react-icons/io5'
 import { LuDot } from 'react-icons/lu'
 import { useToast } from './ui/use-toast'
 import { ShareUrl } from './share-url'
+import { useEffect, useState } from 'react'
 
 const Post = ({ post }: any) => {
+  const [isLike, setIsLike] = useState(false)
+  const [totalLikes, setTotalLikes] = useState(post.likes.length)
   const pathname = usePathname()
   const { data: session } = useSession()
   const { toast } = useToast()
+
+  const isUserLike = post.likes.find(
+    (u: any) => u.authorId === session?.user.id
+  )
+
+  useEffect(() => {
+    if (isUserLike) {
+      setIsLike(true)
+    }
+  }, [session])
 
   const timeExtractor = () => {
     const totalTime = Number(new Date()) - Number(new Date(post.createdAt))
     const minute = 1000 * 60
     const hour = minute * 60
     const day = hour * 24
+    const week = day * 7
     if (totalTime < minute) {
       return `${Math.floor(totalTime / 1000)} sec ago`
     } else if (totalTime < minute * 2) {
@@ -34,19 +47,22 @@ const Post = ({ post }: any) => {
     } else if (totalTime < day) {
       return `${Math.floor(totalTime / hour)} hours ago`
     } else {
+      if (totalTime > day * 14)
+        return `${Math.floor(totalTime / week)} weeks ago`
+      if (totalTime > day * 7) return '1 week ago'
       if (totalTime < 2 * day) return '1 day ago'
       return `${Math.floor(totalTime / day)} days ago`
     }
   }
 
-  const isUserLike = post.likes.find(
-    (u: any) => u.authorId === session?.user.id
-  )
-
   const handleUpdateLike = async () => {
-    if (isUserLike) {
+    setIsLike(!isLike)
+    if (isLike) {
+      if (totalLikes > 0) setTotalLikes(totalLikes - 1)
       const res = await deleteLike(session?.user.id as string)
       if (!res?.success) {
+        setIsLike(true)
+        setTotalLikes(totalLikes + 1)
         toast({
           title: 'Something went wrong',
           description: 'Please try again',
@@ -56,7 +72,20 @@ const Post = ({ post }: any) => {
       return
     }
 
-    await addLike({ postId: post.id, authorId: session?.user.id as string })
+    setTotalLikes(totalLikes + 1)
+    const res = await addLike({
+      postId: post.id,
+      authorId: session?.user.id as string
+    })
+    if (!res?.success) {
+      setIsLike(false)
+      setTotalLikes(totalLikes - 1)
+      toast({
+        title: 'Something went wrong',
+        description: 'Please try again',
+        variant: 'destructive'
+      })
+    }
   }
 
   return (
@@ -109,8 +138,12 @@ const Post = ({ post }: any) => {
       </div>
       <div className="flex items-center justify-between px-2 sm:px-1 mt-2 mb-1">
         <div className="flex space-x-5">
-          <button onClick={handleUpdateLike} className="text-2xl font-normal">
-            {isUserLike ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
+          <button
+            onClick={handleUpdateLike}
+            disabled={!session}
+            className="text-2xl font-normal"
+          >
+            {isLike ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
           </button>
           <Link href={`/post/${post.id}`} className="text-2xl font-normal">
             <BiCommentDetail />
@@ -120,22 +153,11 @@ const Post = ({ post }: any) => {
           <ShareUrl postId={post.id} />
         </div>
       </div>
-      <div className="text-sm font-medium mb-1 px-2 sm:px-1">
-        {post.likes.length > 5 ? (
-          <div>
-            {isUserLike ? (
-              <span className="font-normal">
-                Liked by <b className="font-semibold">You</b> and{' '}
-                <b className="font-semibold">{post.likes.length - 1} others</b>
-              </span>
-            ) : (
-              <span className="">{post.likes.length} likes</span>
-            )}
-          </div>
-        ) : (
-          <div>{post.likes.length} likes</div>
-        )}
-      </div>
+      {totalLikes ? (
+        <div className="text-sm font-medium mb-1 px-2 sm:px-1">
+          {totalLikes} {totalLikes === 1 ? 'like' : 'likes'}
+        </div>
+      ) : null}
       {post.caption && (
         <div className="flex gap-2 text-sm px-2 sm:px-1">
           <h3 className="flex items-center font-semibold">

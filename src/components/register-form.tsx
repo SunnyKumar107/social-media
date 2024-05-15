@@ -59,12 +59,17 @@ const RegisterForm = () => {
 
     if (!isValidEmail(email)) {
       displayErr('invalid email')
-      return null
+      return
+    }
+
+    if (username.length < 3) {
+      displayErr('username must be at least 3 characters')
+      return
     }
 
     if (!password || password.length < 6) {
       displayErr('password must be at least 6 characters')
-      return null
+      return
     }
 
     const res = await createUser({
@@ -86,10 +91,6 @@ const RegisterForm = () => {
         password
       })
       router.replace('/')
-      toast({
-        variant: 'default',
-        description: 'Logged in successfully!'
-      })
     }
     if (!res.success) {
       setLoader(false)
