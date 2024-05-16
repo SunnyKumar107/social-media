@@ -45,28 +45,6 @@ export const postsRelations = relations(posts, ({ one, many }) => ({
   likes: many(likes)
 }))
 
-export const comments = pgTable('comments', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  postId: uuid('post_id'),
-  authorId: uuid('author_id')
-    .notNull()
-    .references(() => users.id),
-  comment: text('comment').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull()
-})
-
-export const commentsRelations = relations(comments, ({ one }) => ({
-  author: one(users, {
-    fields: [comments.authorId],
-    references: [users.id]
-  }),
-  post: one(posts, {
-    fields: [comments.postId],
-    references: [posts.id]
-  })
-}))
-
 export const likes = pgTable('likes', {
   id: uuid('id').primaryKey().defaultRandom(),
   postId: uuid('post_id')
@@ -87,5 +65,51 @@ export const likesRelations = relations(likes, ({ one }) => ({
   post: one(posts, {
     fields: [likes.postId],
     references: [posts.id]
+  })
+}))
+
+export const comments = pgTable('comments', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  postId: uuid('post_id'),
+  authorId: uuid('author_id')
+    .notNull()
+    .references(() => users.id),
+  comment: text('comment').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull()
+})
+
+export const commentsRelations = relations(comments, ({ one, many }) => ({
+  author: one(users, {
+    fields: [comments.authorId],
+    references: [users.id]
+  }),
+  post: one(posts, {
+    fields: [comments.postId],
+    references: [posts.id]
+  }),
+  likedBy: many(commentsLikes)
+}))
+
+export const commentsLikes = pgTable('comments_likes', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  commentId: uuid('comment_id')
+    .notNull()
+    .references(() => comments.id),
+  authorId: uuid('author_id')
+    .notNull()
+    .references(() => users.id),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull()
+})
+
+export const commentsLikesRelations = relations(commentsLikes, ({ one }) => ({
+  author: one(users, {
+    fields: [commentsLikes.authorId],
+    references: [users.id]
+  }),
+  comment: one(comments, {
+    fields: [commentsLikes.commentId],
+    references: [comments.id]
   })
 }))

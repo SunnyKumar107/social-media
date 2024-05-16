@@ -2,7 +2,7 @@
 
 import { eq } from 'drizzle-orm'
 import { db } from '.'
-import { posts, users, comments, likes } from './schema'
+import { posts, users, comments, likes, commentsLikes } from './schema'
 import bcrypt from 'bcrypt'
 import { revalidateTag } from 'next/cache'
 
@@ -154,37 +154,6 @@ export const createPost = async ({
   }
 }
 
-export const addComment = async ({
-  postId,
-  authorId,
-  comment
-}: {
-  postId: string
-  authorId: string
-  comment: string
-}) => {
-  try {
-    await db.insert(comments).values({
-      postId: postId,
-      authorId: authorId,
-      comment: comment
-    })
-    revalidateTag('/')
-
-    return {
-      success: true,
-      message: 'comment added',
-      statuscode: 200
-    }
-  } catch (error) {
-    return {
-      success: false,
-      message: 'server error',
-      statuscode: 500
-    }
-  }
-}
-
 export const addLike = async ({
   postId,
   authorId
@@ -228,4 +197,83 @@ export const deleteLike = async (authorId: string) => {
       statuscode: 500
     }
   }
+}
+
+
+export const addComment = async ({
+  postId,
+  authorId,
+  comment
+}: {
+  postId: string
+  authorId: string
+  comment: string
+}) => {
+  try {
+    await db.insert(comments).values({
+      postId: postId,
+      authorId: authorId,
+      comment: comment
+    })
+    revalidateTag('/')
+
+    return {
+      success: true,
+      message: 'comment added',
+      statuscode: 200
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: 'server error',
+      statuscode: 500
+    }
+  }
+}
+
+export const likeComment = async ({
+  commentId,
+  authorId
+}: {
+  commentId: string,
+  authorId: string
+}) => {
+  try {
+    await db.insert(commentsLikes).values({
+      commentId: commentId,
+      authorId: authorId
+    })
+    console.log('likes')
+    revalidateTag('/')
+    return {
+      success: true,
+      message: 'like added',
+      statuscode: 200
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: 'server error',
+      statuscode: 500
+    }
+  }
+}
+
+export const removeLikeComment = async (authorId: string) => {
+  try {
+    await db.delete(commentsLikes).where(eq(commentsLikes.authorId, authorId))
+console.log('remove')
+    revalidateTag('/')
+    return {
+      success: true,
+      message: 'like deleted',
+      statuscode: 200
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: 'server error',
+      statuscode: 500
+    }
+  } 
 }

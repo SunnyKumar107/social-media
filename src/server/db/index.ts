@@ -44,7 +44,8 @@ export const getPostTable = async () => {
 export const getCommentsTable = async () => {
   const result = await db.query.comments.findMany({
     with: {
-      author: true
+      author: true,
+      likedBy: true
     }
   })
   return result
